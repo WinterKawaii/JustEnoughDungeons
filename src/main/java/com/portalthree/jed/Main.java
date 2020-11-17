@@ -55,11 +55,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 
+
 @Mod(modid = me.Danker.Main.MODID, version = me.Danker.Main.VERSION, clientSideOnly = true)
 public class Main
 {
-    public static final String MODID = "Danker's Skyblock Mod";
-    public static final String VERSION = "1.8.1";
+    public static final String MODID = "jed";
+    public static final String VERSION = "1.0";
 
     static double checkItemsNow = 0;
     static double itemsChecked = 0;
@@ -145,48 +146,13 @@ public class Main
         ClientCommandHandler.instance.registerCommand(new ToggleCommand());
         ClientCommandHandler.instance.registerCommand(new ReloadConfigCommand());
         ClientCommandHandler.instance.registerCommand(new DungeonsCommand());
-        ClientCommandHandler.instance.registerCommand(new DankerGuiCommand());
+        ClientCommandHandler.instance.registerCommand(new MainGuiCommand());
     }
 
     @EventHandler
     public void postInit(final FMLPostInitializationEvent event) {
         usingLabymod = Loader.isModLoaded("labymod");
         System.out.println("LabyMod detection: " + usingLabymod);
-    }
-
-    // Update checker
-    @SubscribeEvent
-    public void onJoin(EntityJoinWorldEvent event) {
-        if (!updateChecked) {
-            updateChecked = true;
-
-            // MULTI THREAD DRIFTING
-            new Thread(() -> {
-                APIHandler ah = new APIHandler();
-                EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-
-                System.err.println("Checking for updates...");
-                JsonObject latestRelease = ah.getResponse("https://api.github.com/repos/bowser0000/SkyblockMod/releases/latest");
-
-                String latestTag = latestRelease.get("tag_name").getAsString();
-                DefaultArtifactVersion currentVersion = new DefaultArtifactVersion(VERSION);
-                DefaultArtifactVersion latestVersion = new DefaultArtifactVersion(latestTag.substring(1));
-
-                if (currentVersion.compareTo(latestVersion) < 0) {
-                    String releaseURL = latestRelease.get("html_url").getAsString();
-
-                    ChatComponentText update = new ChatComponentText(EnumChatFormatting.GREEN + "" + EnumChatFormatting.BOLD + "  [UPDATE]  ");
-                    update.setChatStyle(update.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, releaseURL)));
-
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException ex) {
-                        System.err.println(ex);
-                    }
-                    player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + MODID + " is outdated. Please update to " + latestTag + ".\n").appendSibling(update));
-                }
-            }).start();
-        }
     }
 
     @SubscribeEvent
@@ -433,7 +399,7 @@ public class Main
             Minecraft mc = Minecraft.getMinecraft();
             if (guiToOpen.startsWith("dankergui")) {
                 int page = Character.getNumericValue(guiToOpen.charAt(guiToOpen.length() - 1));
-                mc.displayGuiScreen(new com.portalthree.jed.gui.DankerGui(page));
+                mc.displayGuiScreen(new com.portalthree.jed.gui.MainGui(page));
             } else if (guiToOpen.equals("displaygui")) {
                 mc.displayGuiScreen(new me.Danker.gui.DisplayGui());
             } else if (guiToOpen.equals("puzzlesolvers")) {

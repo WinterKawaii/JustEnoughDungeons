@@ -5,7 +5,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-public class DankerGuiCommand extends CommandBase {
+public class MainGuiCommand extends CommandBase {
 
 	@Override
 	public String getCommandName() {

@@ -5,72 +5,92 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.portalthree.jed.Utils;
+import com.portalthree.jed.commands.ToggleCommand;
+import com.portalthree.jed.handlers.ConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 
-public class DankerGui extends GuiScreen {
+public class MainGui extends GuiScreen {
 
 	private int page;
-	
+
 	private GuiButton closeGUI;
 	private GuiButton backPage;
 	private GuiButton nextPage;
 	private GuiButton githubLink;
 	private GuiButton discordLink;
-	private GuiButton changeDisplay;
-	private GuiButton onlySlayer;
 	private GuiButton puzzleSolvers;
+	private GuiButton goBack;
+	private GuiButton riddle;
+	private GuiButton trivia;
+	private GuiButton blaze;
+	private GuiButton creeper;
 	// Toggles
 
-	public DankerGui(int page) {
+	public MainGui(int page) {
 		this.page = page;
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
-	
+
+	ResourceLocation texture = new ResourceLocation("jed:abackground.png");
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		zLevel = -5000;
+		//Main Frame
+		GlStateManager.pushMatrix();
+		float x = (float)width/1920;
+		float y = (float)height/1080;
+		GlStateManager.scale(x * 7.5, y * 4, 0);
+		mc.getTextureManager().bindTexture(texture);
+		drawTexturedModalRect(0,0,0,0, 1920, 1080);
+		GlStateManager.popMatrix();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
 	@Override
 	public void initGui() {
+		zLevel = 5000;
 		super.initGui();
-		
+
 		ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 		int height = sr.getScaledHeight();
 		int width = sr.getScaledWidth();
-		
+
 		// Default button size is 200, 20
 		closeGUI = new GuiButton(0, width / 2 - 100, (int) (height * 0.9), "Close");
-		backPage = new GuiButton(0, width / 2 - 100, (int) (height * 0.8), 80, 20, "< Back");
-		nextPage = new GuiButton(0, width / 2 + 20, (int) (height * 0.8), 80, 20, "Next >");
 		githubLink = new GuiButton(0, 2, height - 50, 80, 20, "GitHub");
 		discordLink = new GuiButton(0, 2, height - 30, 80, 20, "Discord");
-		
+
+
 		// Page 1
-		puzzleSolvers = new GuiButton(0, width / 2 - 100, (int) (height * 0.3), "Toggle Dungeons Puzzle Solvers");
-		
+		riddle = new GuiButton(0, width / 2 - 315, (int) (height * 0.25), "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled));
+		trivia = new GuiButton(0, width / 2 - 315, (int) (height * 0.3), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
+		blaze = new GuiButton(0, width / 2 - 315, (int) (height * 0.35), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
+		creeper = new GuiButton(0, width / 2 - 315, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
+
 		if (page == 1) {
-			this.buttonList.add(puzzleSolvers);
-			this.buttonList.add(nextPage);
-		} else if (page == 2) {
-			this.buttonList.add(nextPage);
-			this.buttonList.add(backPage);
-		} else if (page == 3) {
-			this.buttonList.add(backPage);
+			this.buttonList.add(riddle);
+			this.buttonList.add(trivia);
+			this.buttonList.add(blaze);
+			this.buttonList.add(creeper);
 		}
 		this.buttonList.add(githubLink);
 		this.buttonList.add(discordLink);
 		this.buttonList.add(closeGUI);
 	}
-	
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
-		super.drawScreen(mouseX, mouseY, partialTicks);
-	}
-	
+
+
+
 	@Override
 	public void actionPerformed(GuiButton button) {
 		if (button == closeGUI) {
@@ -79,6 +99,22 @@ public class DankerGui extends GuiScreen {
 			me.Danker.Main.guiToOpen = "dankergui" + (page + 1);
 		} else if (button == backPage) {
 			me.Danker.Main.guiToOpen = "dankergui" + (page - 1);
+		}  else if (button == riddle) {
+			ToggleCommand.threeManToggled = !ToggleCommand.threeManToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "ThreeManPuzzle", ToggleCommand.threeManToggled);
+			riddle.displayString = "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled);
+		} else if (button == trivia) {
+			ToggleCommand.oruoToggled = !ToggleCommand.oruoToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "OruoPuzzle", ToggleCommand.oruoToggled);
+			trivia.displayString = "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled);
+		} else if (button == blaze) {
+			ToggleCommand.blazeToggled = !ToggleCommand.blazeToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "BlazePuzzle", ToggleCommand.blazeToggled);
+			blaze.displayString = "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled);
+		} else if (button == creeper) {
+			ToggleCommand.creeperToggled = !ToggleCommand.creeperToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "CreeperPuzzle", ToggleCommand.creeperToggled);
+			creeper.displayString = "Creeper Solver: " + Utils.getColouredBoolean(ToggleCommand.creeperToggled);
 		} else if (button == githubLink) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://github.com/portalthree"));
@@ -91,12 +127,6 @@ public class DankerGui extends GuiScreen {
 			} catch (IOException | URISyntaxException ex) {
 				System.err.println(ex);
 			}
-		} else if (button == changeDisplay) {
-			me.Danker.Main.guiToOpen = "displaygui";
-		} else if (button == onlySlayer) {
-			me.Danker.Main.guiToOpen = "onlyslayergui";
-		} else if (button == puzzleSolvers) {
-			me.Danker.Main.guiToOpen = "puzzlesolvers";
 		}
 	}
 
