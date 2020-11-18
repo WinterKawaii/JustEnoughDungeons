@@ -40,7 +40,7 @@ public class ToggleCommand extends CommandBase implements ICommand {
 	
 	@Override
 	public String getCommandName() {
-		return "toggle";
+		return "aaaaaaaaaaaaaaaaaa";
 	}
 
 	@Override

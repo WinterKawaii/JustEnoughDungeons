@@ -62,8 +62,6 @@ public class Main
     public static final String MODID = "jed";
     public static final String VERSION = "1.0";
 
-    static double checkItemsNow = 0;
-    static double itemsChecked = 0;
     public static Map<String, String> t6Enchants = new HashMap<String, String>();
     public static Pattern pattern = Pattern.compile("");
     static boolean updateChecked = false;
@@ -76,8 +74,6 @@ public class Main
     public static String skillText = "";
     static int tickAmount = 1;
     static KeyBinding[] keyBindings = new KeyBinding[1];
-    static int lastMouse = -1;
-    static boolean usingLabymod = false;
     public static String guiToOpen = null;
     static String[] riddleSolutions = {"The reward is not in my chest!", "At least one of them is lying, and the reward is not in",
             "My chest doesn't have the reward. We are all telling the truth", "My chest has the reward and I'm telling the truth",
@@ -147,12 +143,12 @@ public class Main
         ClientCommandHandler.instance.registerCommand(new ReloadConfigCommand());
         ClientCommandHandler.instance.registerCommand(new DungeonsCommand());
         ClientCommandHandler.instance.registerCommand(new MainGuiCommand());
+        ClientCommandHandler.instance.registerCommand(new SetkeyCommand());
+        ClientCommandHandler.instance.registerCommand(new HelpCommand());
     }
 
     @EventHandler
     public void postInit(final FMLPostInitializationEvent event) {
-        usingLabymod = Loader.isModLoaded("labymod");
-        System.out.println("LabyMod detection: " + usingLabymod);
     }
 
     @SubscribeEvent
@@ -210,24 +206,29 @@ public class Main
             for (String question : triviaSolutions.keySet()) {
                 if (message.contains(question)) {
                     Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
                     break;
                 }
             }
         }
+    }
 
-
-        // Spirit Bear alerts
-        if (tc.spiritBearAlerts && message.contains("The Spirit Bear has appeared!")) {
-            Utils.createTitle(EnumChatFormatting.DARK_PURPLE + "SPIRIT BEAR", 2);
-        }
-
-        // Spirit Sceptre
-        if (!tc.sceptreMessages && message.contains("Your Spirit Sceptre hit ")) {
-            event.setCanceled(true);
-        }
-        // Midas Staff
-        if (!tc.midasStaffMessages && message.contains("Your Molten Wave hit ")) {
-            event.setCanceled(true);
+    // Delay GUI by 1 tick
+    @SubscribeEvent
+    public void onRenderTick(TickEvent.RenderTickEvent event) {
+        if (guiToOpen != null) {
+            Minecraft mc = Minecraft.getMinecraft();
+            if (guiToOpen.startsWith("dankergui")) {
+                int page = Character.getNumericValue(guiToOpen.charAt(guiToOpen.length() - 1));
+                mc.displayGuiScreen(new com.portalthree.jed.gui.MainGui(page));
+            } else if (guiToOpen.equals("displaygui")) {
+                mc.displayGuiScreen(new me.Danker.gui.DisplayGui());
+            } else if (guiToOpen.equals("puzzlesolvers")) {
+                mc.displayGuiScreen(new me.Danker.gui.PuzzleSolversGui());
+            }
+            guiToOpen = null;
         }
     }
 
@@ -389,23 +390,6 @@ public class Main
                 showSkill = false;
             }
             skillTimer--;
-        }
-    }
-
-    // Delay GUI by 1 tick
-    @SubscribeEvent
-    public void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (guiToOpen != null) {
-            Minecraft mc = Minecraft.getMinecraft();
-            if (guiToOpen.startsWith("dankergui")) {
-                int page = Character.getNumericValue(guiToOpen.charAt(guiToOpen.length() - 1));
-                mc.displayGuiScreen(new com.portalthree.jed.gui.MainGui(page));
-            } else if (guiToOpen.equals("displaygui")) {
-                mc.displayGuiScreen(new me.Danker.gui.DisplayGui());
-            } else if (guiToOpen.equals("puzzlesolvers")) {
-                mc.displayGuiScreen(new me.Danker.gui.PuzzleSolversGui());
-            }
-            guiToOpen = null;
         }
     }
 

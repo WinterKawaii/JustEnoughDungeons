@@ -20,7 +20,7 @@ public class DungeonsCommand extends CommandBase {
 
 	@Override
 	public String getCommandName() {
-		return "dungeons";
+		return "jeddungeons";
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class DungeonsCommand extends CommandBase {
 			JsonObject profileResponse = ah.getResponse(profileURL);
 			if (!profileResponse.get("success").getAsBoolean()) {
 				String reason = profileResponse.get("cause").getAsString();
-				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Failed with reason: " + reason));
+				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "(/jedsetkey will probably resolve this problem) Failed with reason: " + reason));
 				return;
 			}
 			

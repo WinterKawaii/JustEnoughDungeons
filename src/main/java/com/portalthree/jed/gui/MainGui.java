@@ -73,10 +73,12 @@ public class MainGui extends GuiScreen {
 
 
 		// Page 1
-		riddle = new GuiButton(0, width / 2 - 315, (int) (height * 0.25), "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled));
-		trivia = new GuiButton(0, width / 2 - 315, (int) (height * 0.3), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
-		blaze = new GuiButton(0, width / 2 - 315, (int) (height * 0.35), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
-		creeper = new GuiButton(0, width / 2 - 315, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
+		GlStateManager.pushMatrix();
+		riddle = new GuiButton(0, width / 2 - 100, (int) (height * 0.25), "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled));
+		trivia = new GuiButton(0, width / 2 - 100, (int) (height * 0.3), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
+		blaze = new GuiButton(0, width / 2 - 100, (int) (height * 0.35), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
+		creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
+		GlStateManager.popMatrix();
 
 		if (page == 1) {
 			this.buttonList.add(riddle);

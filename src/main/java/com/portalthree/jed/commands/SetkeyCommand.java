@@ -1,4 +1,4 @@
-package me.Danker.commands;
+package com.portalthree.jed.commands;
 
 import com.portalthree.jed.handlers.ConfigHandler;
 import net.minecraft.command.CommandBase;
@@ -13,12 +13,12 @@ public class SetkeyCommand extends CommandBase implements ICommand {
 
 	@Override
 	public String getCommandName() {
-		return "setkey";
+		return "jedsetkey";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender arg0) {
-		return "/" + getCommandName() + " <key>";
+		return "/" + getCommandName() + " <api-key>";
 	}
 	
 	@Override
