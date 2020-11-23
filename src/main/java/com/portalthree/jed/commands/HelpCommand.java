@@ -1,6 +1,5 @@
 package com.portalthree.jed.commands;
 
-import com.portalthree.jed.handlers.ConfigHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
@@ -30,10 +29,12 @@ public class HelpCommand extends CommandBase implements ICommand {
     public void processCommand(ICommandSender arg0, String[] arg1) throws CommandException {
         final EntityPlayer player = (EntityPlayer) arg0;
 
-        player.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "LIST OF AVAILBLE COMMANDS\n" +
+        player.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------\n" +
+                EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "LIST OF AVAILBLE COMMANDS:\n" +
                 EnumChatFormatting.WHITE + " /jedhelp: Provides a list of availble commands"  + "\n" +
                 EnumChatFormatting.WHITE + " /jed: Opens the main GUI"  + "\n" +
                 EnumChatFormatting.WHITE + " /jedsetkey: Set your API key"  + "\n" +
-                EnumChatFormatting.WHITE + " /jeddungeons: Allows you to check someone's dungeon stats."  + "\n"));
+                EnumChatFormatting.WHITE + " /jeddungeons: Allows you to check someone's dungeon stats."  + "\n" +
+                EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------\n"));
     };
 }

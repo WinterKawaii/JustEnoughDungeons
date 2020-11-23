@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.JsonObject;
 
 
-import com.portalthree.jed.Utils;
+import com.portalthree.jed.utils.Utils;
 import com.portalthree.jed.handlers.APIHandler;
 import com.portalthree.jed.handlers.ConfigHandler;
 import net.minecraft.command.CommandBase;
@@ -52,7 +52,7 @@ public class DungeonsCommand extends CommandBase {
 			// Check key
 			String key = cf.getString("api", "APIKey");
 			if (key.equals("")) {
-				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + " " + EnumChatFormatting.BOLD + "WRONG API KEY! Use /setkey. <api-key>"));
+				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + " " + EnumChatFormatting.BOLD + "WRONG API KEY! Use /jedsetkey. <api-key>"));
 			}
 			
 			// Get UUID for Hypixel API requests
@@ -95,8 +95,8 @@ public class DungeonsCommand extends CommandBase {
 			double archer = Utils.xpToDungeonsLevel(dungeonsObject.get("player_classes").getAsJsonObject().get("archer").getAsJsonObject().get("experience").getAsDouble());
 			double tank = Utils.xpToDungeonsLevel(dungeonsObject.get("player_classes").getAsJsonObject().get("tank").getAsJsonObject().get("experience").getAsDouble());
 			String selectedClass = Utils.capitalizeString(dungeonsObject.get("selected_dungeon_class").getAsString());
-			
-			player.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "-------------------\n" +
+
+			player.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "-------------------\n" +
 														EnumChatFormatting.RED + " Catacombs Level: " + catacombs + "\n" +
 														EnumChatFormatting.GOLD + " Selected Class: " + selectedClass + "\n\n" +
 														EnumChatFormatting.YELLOW + " Healer Level: " + healer + "\n" +
@@ -104,9 +104,15 @@ public class DungeonsCommand extends CommandBase {
 														EnumChatFormatting.RED + " Berserk Level: " + berserk + "\n" +
 														EnumChatFormatting.GREEN + " Archer Level: " + archer + "\n" +
 														EnumChatFormatting.BLUE + " Tank Level: " + tank + "\n" +
-														EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "-------------------\n" +
+														EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "-------------------\n" +
 														EnumChatFormatting.YELLOW + " Average Class Level: " + (tank + archer + berserk + mage + healer)/5 + "\n" +
-														EnumChatFormatting.AQUA + " " + EnumChatFormatting.BOLD + "-------------------"));
+														EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "-------------------\n" +
+													    EnumChatFormatting.LIGHT_PURPLE + "" + EnumChatFormatting.BOLD + "TOTAL SECRETS FOUND:\n" +
+														EnumChatFormatting.LIGHT_PURPLE  + "soon" +" \n" +
+														EnumChatFormatting.AQUA +  "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "-------------------\n" +
+														EnumChatFormatting.LIGHT_PURPLE + "" + EnumChatFormatting.BOLD + "CURRENT GEAR:\n" +
+														EnumChatFormatting.LIGHT_PURPLE  + "soon, im too tired to code rn, you can @ me on discord so i'll do it" +" \n" +
+					EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "-------------------"));
 		}).start();
 	}
 

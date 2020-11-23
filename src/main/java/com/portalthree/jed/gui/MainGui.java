@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import com.portalthree.jed.Utils;
+import com.portalthree.jed.utils.Utils;
 import com.portalthree.jed.commands.ToggleCommand;
 import com.portalthree.jed.handlers.ConfigHandler;
 import net.minecraft.client.Minecraft;
@@ -20,16 +20,15 @@ public class MainGui extends GuiScreen {
 	private int page;
 
 	private GuiButton closeGUI;
-	private GuiButton backPage;
-	private GuiButton nextPage;
 	private GuiButton githubLink;
 	private GuiButton discordLink;
-	private GuiButton puzzleSolvers;
-	private GuiButton goBack;
 	private GuiButton riddle;
 	private GuiButton trivia;
 	private GuiButton blaze;
 	private GuiButton creeper;
+	private GuiButton joinInformation;
+	private GuiButton mobClear;
+	private GuiButton necronGlow;
 	// Toggles
 
 	public MainGui(int page) {
@@ -78,30 +77,31 @@ public class MainGui extends GuiScreen {
 		trivia = new GuiButton(0, width / 2 - 100, (int) (height * 0.3), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
 		blaze = new GuiButton(0, width / 2 - 100, (int) (height * 0.35), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
 		creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
+		joinInformation = new GuiButton(0, width / 2 - 100, (int) (height * 0.45), "Party Finder Join Information : " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled));
+		mobClear = new GuiButton(0, width / 2 - 100, (int) (height * 0.50), "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled));
+		necronGlow = new GuiButton(0, width / 2 - 100, (int) (height * 0.55), "Glowing Necron : " + Utils.getColouredBoolean(ToggleCommand.necronGlowToggled));
 		GlStateManager.popMatrix();
 
-		if (page == 1) {
-			this.buttonList.add(riddle);
-			this.buttonList.add(trivia);
-			this.buttonList.add(blaze);
-			this.buttonList.add(creeper);
-		}
+		this.buttonList.add(riddle);
+		this.buttonList.add(trivia);
+		this.buttonList.add(blaze);
+		this.buttonList.add(creeper);
+		this.buttonList.add(joinInformation);
 		this.buttonList.add(githubLink);
 		this.buttonList.add(discordLink);
 		this.buttonList.add(closeGUI);
-	}
+		this.buttonList.add(mobClear);
+		this.buttonList.add(necronGlow);
 
+	}
 
 
 	@Override
 	public void actionPerformed(GuiButton button) {
 		if (button == closeGUI) {
 			Minecraft.getMinecraft().thePlayer.closeScreen();
-		} else if (button == nextPage) {
-			me.Danker.Main.guiToOpen = "dankergui" + (page + 1);
-		} else if (button == backPage) {
-			me.Danker.Main.guiToOpen = "dankergui" + (page - 1);
-		}  else if (button == riddle) {
+		}
+		  else if (button == riddle) {
 			ToggleCommand.threeManToggled = !ToggleCommand.threeManToggled;
 			ConfigHandler.writeBooleanConfig("toggles", "ThreeManPuzzle", ToggleCommand.threeManToggled);
 			riddle.displayString = "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled);
@@ -117,6 +117,18 @@ public class MainGui extends GuiScreen {
 			ToggleCommand.creeperToggled = !ToggleCommand.creeperToggled;
 			ConfigHandler.writeBooleanConfig("toggles", "CreeperPuzzle", ToggleCommand.creeperToggled);
 			creeper.displayString = "Creeper Solver: " + Utils.getColouredBoolean(ToggleCommand.creeperToggled);
+		} else if (button == joinInformation) {
+		ToggleCommand.joinInformationToggled = !ToggleCommand.joinInformationToggled;
+		ConfigHandler.writeBooleanConfig("toggles", "joinInformation", ToggleCommand.joinInformationToggled);
+		joinInformation.displayString = "Party Finder Join Information: " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled);
+		} else if (button == mobClear) {
+			ToggleCommand.mobClearToggled = !ToggleCommand.mobClearToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "mobClear", ToggleCommand.mobClearToggled);
+			mobClear.displayString = "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled);
+		} else if (button == necronGlow) {
+			ToggleCommand.necronGlowToggled = !ToggleCommand.necronGlowToggled;
+			ConfigHandler.writeBooleanConfig("toggles", "necronGlow", ToggleCommand.necronGlowToggled);
+			necronGlow.displayString = "Glowing Necron: " + Utils.getColouredBoolean(ToggleCommand.necronGlowToggled);
 		} else if (button == githubLink) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://github.com/portalthree"));

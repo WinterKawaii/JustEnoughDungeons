@@ -1,7 +1,7 @@
 package com.portalthree.jed.handlers;
 
 import net.minecraft.client.Minecraft;
-import com.portalthree.jed.Utils;
+import com.portalthree.jed.utils.Utils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S04PacketEntityEquipment;
 import java.lang.reflect.Field;
@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 
+
+//Spirit boots fix ig
 public class PacketHandler extends ChannelDuplexHandler {
 
     @Override

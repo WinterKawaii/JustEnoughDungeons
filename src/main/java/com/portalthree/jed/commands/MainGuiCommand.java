@@ -1,6 +1,7 @@
 package com.portalthree.jed.commands;
 
 
+import com.portalthree.Main;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -24,7 +25,7 @@ public class MainGuiCommand extends CommandBase {
 	
 	@Override
 	public void processCommand(ICommandSender arg0, String[] arg1) throws CommandException {
-		me.Danker.Main.guiToOpen = "dankergui1";
+		Main.guiToOpen = "jedGui";
 	}
 
 }
