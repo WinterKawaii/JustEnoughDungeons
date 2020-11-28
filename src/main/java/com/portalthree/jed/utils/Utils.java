@@ -291,15 +291,10 @@ public class Utils {
 		// Move down when chest isn't 6 rows
 		if (size != 90) y += (6 - (size - 36) / 9) * 9;
 
-		GlStateManager.disableDepth();
-		GlStateManager.enableBlend();
-		GlStateManager.enableAlpha();
-		GlStateManager.blendFunc(770, 771);
-		GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_BLEND);
+
+		GL11.glTranslated(0, 0, 1);
 		Gui.drawRect(x, y, x + 16, y + 16, color);
-		GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
-		GlStateManager.enableDepth();
-		GlStateManager.disableAlpha();
+		GL11.glTranslated(0, 0, -1);
 	}
 
 	public static String getTimeBetween(double timeOne, double timeTwo) {

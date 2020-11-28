@@ -8,10 +8,7 @@ import com.portalthree.jed.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
@@ -40,10 +37,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,9 +68,9 @@ public class Main {
             "The reward isn't in any of our chests",
             "Both of them are telling the truth."
     };
-    static Map<String,
-            String> triviaSolutions = new HashMap<String,
-            String>();
+    static Map < String,
+            String > triviaSolutions = new HashMap < String,
+            String > ();
     static Entity highestBlaze = null;
     static Entity lowestBlaze = null;
     static int[] creeperLineColours = {
@@ -94,7 +87,7 @@ public class Main {
     };
     static boolean drawCreeperLines = false;
     static Vec3 creeperLocation = new Vec3(0, 0, 0);
-    static List<Vec3[]> creeperLines = new ArrayList<Vec3[]>();
+    static List < Vec3[] > creeperLines = new ArrayList < Vec3[] > ();
     protected ModelBase mainModel;
 
     private static final Pattern partyFinderPlayerRegex = Pattern.compile("^Dungeon Finder > ?(?<player>\\w{1,16}) joined the dungeon group! \\(.+\\)$");
@@ -104,7 +97,6 @@ public class Main {
         FMLCommonHandler.instance().bus().register(this);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PacketHandler());
-
 
         final ConfigHandler cf = new ConfigHandler();
         cf.reloadConfig();
@@ -159,8 +151,7 @@ public class Main {
     }
 
     @EventHandler
-    public void postInit(final FMLPostInitializationEvent event) {
-    }
+    public void postInit(final FMLPostInitializationEvent event) {}
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) throws InterruptedException {
@@ -185,10 +176,9 @@ public class Main {
             }
         }
 
-
         // Dungeon chat spoken by an NPC, containing :
         if (ToggleCommand.threeManToggled && Utils.inDungeons && message.contains("[NPC]")) {
-            for (String solution : riddleSolutions) {
+            for (String solution: riddleSolutions) {
                 if (message.contains(solution)) {
                     String npcName = message.substring(message.indexOf("]") + 2, message.indexOf(":"));
                     Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_GREEN + "" + EnumChatFormatting.BOLD + npcName + EnumChatFormatting.GREEN + " has the blessing."));
@@ -200,7 +190,7 @@ public class Main {
         if (message.contains(":")) return;
 
         if (ToggleCommand.oruoToggled && Utils.inDungeons) {
-            for (String question : triviaSolutions.keySet()) {
+            for (String question: triviaSolutions.keySet()) {
                 if (message.contains(question)) {
                     Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
                     Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer: " + EnumChatFormatting.DARK_GREEN + EnumChatFormatting.BOLD + triviaSolutions.get(question)));
@@ -230,7 +220,6 @@ public class Main {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.thePlayer;
 
-
         // Checks every second
         tickAmount++;
         if (tickAmount % 20 == 0) {
@@ -240,9 +229,9 @@ public class Main {
             }
 
             if (DisplayCommand.auto && mc != null && mc.theWorld != null) {
-                List<String> scoreboard = ScoreboardHandler.getSidebarLines();
+                List < String > scoreboard = ScoreboardHandler.getSidebarLines();
                 boolean found = false;
-                for (String s : scoreboard) {
+                for (String s: scoreboard) {
                     String sCleaned = ScoreboardHandler.cleanSB(s);
                     if (sCleaned.contains("The Catacombs (")) {
                         if (sCleaned.contains("F1")) {
@@ -273,7 +262,7 @@ public class Main {
                 double z = player.posZ;
                 // Find creepers nearby
                 AxisAlignedBB creeperScan = new AxisAlignedBB(x - 14, y - 8, z - 13, x + 14, y + 8, z + 13); // 28x16x26 cube
-                List<EntityCreeper> creepers = mc.theWorld.getEntitiesWithinAABB(EntityCreeper.class, creeperScan);
+                List < EntityCreeper > creepers = mc.theWorld.getEntitiesWithinAABB(EntityCreeper.class, creeperScan);
                 // Check if creeper is nearby
                 if (creepers.size() > 0) {
                     EntityCreeper creeper = creepers.get(0);
@@ -284,8 +273,8 @@ public class Main {
                     // Search for nearby sea lanterns and   blocks
                     BlockPos point1 = new BlockPos(creeper.posX - 14, creeper.posY - 7, creeper.posZ - 13);
                     BlockPos point2 = new BlockPos(creeper.posX + 14, creeper.posY + 10, creeper.posZ + 13);
-                    Iterable<BlockPos> blocks = BlockPos.getAllInBox(point1, point2);
-                    for (BlockPos blockPos : blocks) {
+                    Iterable < BlockPos > blocks = BlockPos.getAllInBox(point1, point2);
+                    for (BlockPos blockPos: blocks) {
                         Block block = mc.theWorld.getBlockState(blockPos).getBlock();
                         if (block == Blocks.sea_lantern || block == Blocks.prismarine) {
                             // Connect block to nearest block on opposite side
@@ -313,13 +302,13 @@ public class Main {
         // Checks 5 times per second
         if (tickAmount % 4 == 0) {
             if (ToggleCommand.blazeToggled && Utils.inDungeons && mc.theWorld != null) {
-                List<Entity> entities = mc.theWorld.getLoadedEntityList();
+                List < Entity > entities = mc.theWorld.getLoadedEntityList();
                 int highestHealth = 0;
                 highestBlaze = null;
                 int lowestHealth = 99999999;
                 lowestBlaze = null;
 
-                for (Entity entity : entities) {
+                for (Entity entity: entities) {
                     if (entity.getName().contains("Blaze") && entity.getName().contains("/")) {
                         String blazeName = StringUtils.stripControlCodes(entity.getName());
                         try {
@@ -332,7 +321,7 @@ public class Main {
                                 lowestHealth = health;
                                 lowestBlaze = entity;
                             }
-                        } catch (NumberFormatException ex) {
+                        } catch(NumberFormatException ex) {
                             System.err.println(ex);
                         }
                     }
@@ -360,8 +349,8 @@ public class Main {
         float partialTicks = event.partialTicks;
 
         if (ToggleCommand.mobClearToggled && Utils.inDungeons) {
-            List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
-            for (Entity entity : entities) {
+            List < Entity > entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
+            for (Entity entity: entities) {
                 if (entity.getName().contains("✯")) {
                     Entity renderViewEntity = Minecraft.getMinecraft().getRenderViewEntity();
 
@@ -400,9 +389,9 @@ public class Main {
                     GlStateManager.pushMatrix();
                     GlStateManager.translate(x, y, z);
                     GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate( - Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
                     GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
-                    GlStateManager.scale(-f1, -f1, f1);
+                    GlStateManager.scale( - f1, -f1, f1);
 
                     GlStateManager.scale(distanceScale, distanceScale, distanceScale);
 
@@ -448,8 +437,8 @@ public class Main {
         }
 
         if (ToggleCommand.necronGlowToggled && Utils.inDungeons) {
-            List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
-            for (Entity entity : entities) {
+            List < Entity > entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
+            for (Entity entity: entities) {
                 if (entity instanceof EntityWither) {
                     if (entity.getName().contains("Necron")) {
                         AxisAlignedBB aabb = new AxisAlignedBB(entity.posX - 1.5, entity.posY + 3.5, entity.posZ - 1.5, entity.posX + 1.5, entity.posY, entity.posZ + 1.5);
@@ -460,7 +449,6 @@ public class Main {
         }
     }
 
-
     @SubscribeEvent
     public void onGuiRender(GuiScreenEvent.BackgroundDrawnEvent event) {
         if (ToggleCommand.amongUsSolverToggled) {
@@ -468,20 +456,17 @@ public class Main {
                 GuiChest eventGui = (GuiChest) event.gui;
                 ContainerChest cc = (ContainerChest) eventGui.inventorySlots;
                 String containerName = cc.getLowerChestInventory().getDisplayName().getUnformattedText();
-                List<Slot> invSlots = cc.inventorySlots;
-                for (Slot slot : invSlots) {
+                List < Slot > invSlots = cc.inventorySlots;
+                for (Slot slot: invSlots) {
                     ItemStack item = slot.getStack();
                     if (item == null) continue;
+                    String name = item.getDisplayName();
                     if (containerName.trim().startsWith("Select all the SILVER items!")) {
-                        System.out.println(containerName);
-                        for (int i = 0; i < cc.getLowerChestInventory().getSizeInventory(); i++) {
-                            String name = cc.getLowerChestInventory().getStackInSlot(i).getDisplayName();
-                            if (name.startsWith("Snow")) {
-                                int color;
-                                color = 0xBFF2D249;
-                                Utils.drawOnSlot(eventGui.inventorySlots.inventorySlots.size(), slot.xDisplayPosition, slot.yDisplayPosition, color);
-                                System.out.println("Silver block/item detected");
-                            }
+                        if (!name.startsWith("Snow")) {
+                            System.out.println("Item was not Snow");
+                        } else if (name.startsWith("Snow")) {
+                            Utils.drawOnSlot(eventGui.inventorySlots.inventorySlots.size(), slot.xDisplayPosition, slot.yDisplayPosition, 0xBFF2D249);
+                            System.out.println("Silver block/item detected");
                         }
                     }
                 }

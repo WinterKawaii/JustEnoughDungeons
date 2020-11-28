@@ -6,8 +6,5 @@
   "mixins": [
     "MixinRenderer",
     "MixinRendererLivingEntity"
-  ],
-  "client": [
-    "GuiContainerMixin"
   ]
 }
