@@ -1,0 +1,13 @@
+{
+  "package": "com.portalthree.jed.mixins",
+  "refmap": "mixins.jed.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "verbose": true,
+  "mixins": [
+    "MixinRenderer",
+    "MixinRendererLivingEntity"
+  ],
+  "client": [
+    "GuiContainerMixin"
+  ]
+}
