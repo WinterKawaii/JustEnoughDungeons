@@ -291,9 +291,11 @@ public class Utils {
 		// Move down when chest isn't 6 rows
 		if (size != 90) y += (6 - (size - 36) / 9) * 9;
 
-		GL11.glTranslated(0, 0, 1);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(0, 0, 1);
 		Gui.drawRect(x, y, x + 16, y + 16, color);
-		GL11.glTranslated(0, 0, -1);
+		GlStateManager.translate(0, 0, -1);
+		GlStateManager.popMatrix();
 	}
 
 	public static void bindTexture(ResourceLocation resource)
