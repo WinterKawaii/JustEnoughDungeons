@@ -464,9 +464,9 @@ public class Main {
                         Matcher matcher = amongUsChestRegex.matcher(containerName);
                         if (matcher.matches()) {
                             String containerNameFound = matcher.group("containerNameFound");
-                            if (!name.startsWith(containerNameFound)) {
+                            if (!name.toUpperCase().contains(containerNameFound)) {
                                 System.out.println("Item was not item1");
-                            } else if (name.startsWith(containerNameFound)) {
+                            } else if (name.toUpperCase().contains(containerNameFound)) {
                                 Utils.drawOnSlot(eventGui.inventorySlots.inventorySlots.size(), slot.xDisplayPosition, slot.yDisplayPosition, 0xBFF2D249);
                                 System.out.println("item1 block/item detected");
                             }
