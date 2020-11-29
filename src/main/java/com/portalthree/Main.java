@@ -50,7 +50,7 @@ public class Main {
     public static final String VERSION = "1.0";
     private static final Pattern partyFinderPlayerRegex = Pattern.compile("^Dungeon Finder > ?(?<player>\\w{1,16}) joined the dungeon group! \\(.+\\)$");
     private static final Pattern amongUsChestRegex = Pattern.compile("^Select all the ?(?<containerNameFound>\\w{1,16}) items!");
-    private static final Pattern amongUsChestRegex2 = Pattern.compile("^What starts with: '?(?<containerNameFound2>\\w{1,16})'\\D");
+    private static final Pattern amongUsChestRegex2 = Pattern.compile("^What starts with: '?(?<containerNameFound2>\\w{1,16})'");
     public static Main INSTANCE;
     public static int titleTimer = -1;
     public static String titleText = "";
@@ -449,6 +449,7 @@ public class Main {
             }
         }
     }
+
     @SubscribeEvent
     public void onGuiRender(GuiScreenEvent.BackgroundDrawnEvent event) {
         if (ToggleCommand.amongUsSolverToggled) {
@@ -473,27 +474,13 @@ public class Main {
                             }
                         }
                     }
-                }
-            }
-        }
-
-        if (ToggleCommand.amongUsSolverToggled) {
-            if (event.gui instanceof GuiChest) {
-                GuiChest eventGui = (GuiChest) event.gui;
-                ContainerChest cc = (ContainerChest) eventGui.inventorySlots;
-                String containerName = cc.getLowerChestInventory().getDisplayName().getUnformattedText();
-                List<Slot> invSlots = cc.inventorySlots;
-                for (Slot slot : invSlots) {
-                    ItemStack item = slot.getStack();
-                    if (item == null) continue;
-                    String name = item.getDisplayName();
-                    if (containerName.trim().startsWith("What starts")) {
-                        Matcher matcher = amongUsChestRegex2.matcher(containerName + "?");
+                    if (containerName.trim().startsWith("What")) {
+                        Matcher matcher = amongUsChestRegex2.matcher(containerName);
                         if (matcher.matches()) {
                             String containerNameFound2 = matcher.group("containerNameFound2");
                             if (!name.toUpperCase().startsWith(containerNameFound2)) {
                                 System.out.println("Item was not item1");
-                            } else if (name.toUpperCase().startsWith(containerNameFound2)) {
+                            } else if (name.toUpperCase().contains(containerNameFound2)) {
                                 Utils.drawOnSlot(eventGui.inventorySlots.inventorySlots.size(), slot.xDisplayPosition, slot.yDisplayPosition, 0xBFF2D249);
                                 System.out.println("item1 block/item detected");
                             }
