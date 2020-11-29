@@ -1,8 +1,6 @@
 package com.portalthree.jed.tweaker;
 
 
-//ACTUAL CODE https://github.com/biscuut/LobbyGlow/blob/27c4f8830a147be339c5428433d5a50e5348af3d/src/main/java/codes/biscuit/lobbyglow/tweaker/FMLLoadingPlugin.java
-//lmfaoo sorry biscuut
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
