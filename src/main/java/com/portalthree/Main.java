@@ -449,7 +449,7 @@ public class Main {
     }
 
     private static final Pattern amongUsChestRegex = Pattern.compile("^Select all the ?(?<containerNameFound>\\w{1,16}) items!");
-    private static final Pattern amongUsChestRegex2 = Pattern.compile("^What starts with: '?(?<containerNameFound2>\\w{1,16})'\\?");
+    private static final Pattern amongUsChestRegex2 = Pattern.compile("^What starts with: '?(?<itemFound>\\w)'\\?");
 
     @SubscribeEvent
     public void onGuiRender(GuiScreenEvent.BackgroundDrawnEvent event) {
@@ -494,10 +494,10 @@ public class Main {
                     if (containerName.trim().startsWith("What")) {
                         Matcher matcher = amongUsChestRegex2.matcher(containerName);
                         if (matcher.matches()) {
-                            String containerNameFound2 = matcher.group("containerNameFound2");
-                            if (!name.startsWith(containerNameFound2)) {
+                            String itemFound = matcher.group("itemFound");
+                            if (!name.startsWith("B")) {
                                 System.out.println("Item was not item1");
-                            } else if (name.startsWith(containerNameFound2)) {
+                            } else if (name.startsWith("B")) {
                                 Utils.drawOnSlot(eventGui.inventorySlots.inventorySlots.size(), slot.xDisplayPosition, slot.yDisplayPosition, 0xBFF2D249);
                                 System.out.println("item1 block/item detected");
                             }
