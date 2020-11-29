@@ -49,7 +49,7 @@ public abstract class MixinRendererLivingEntity<T extends EntityLivingBase> exte
     /**
      * @author portalthree
      */
-    @Overwrite
+    @Inject(method = "renderModel", at = @At("HEAD"))
     protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         boolean flag = !entitylivingbaseIn.isInvisible();
         boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
