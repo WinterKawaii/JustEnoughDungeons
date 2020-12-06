@@ -18,5 +18,5 @@
 >If you are having any issues, please report them in the [#bug-report](https://discord.gg/Cx56wfP8dY) channel.
 
 
-## Built with ❤️ by
+## Made with ❤️ by
 * [portalthree](https://github.com/portalthree) - "litteraly the third portal game"
