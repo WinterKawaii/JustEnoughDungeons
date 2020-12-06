@@ -1,3 +1,11 @@
-How to download the mod?
-Join the discord server.
-Discord Server: https://discord.gg/YZyktFqr5K
+# JUST ENOUGH DUNGEONS [![Forge 1.8.9](https://img.shields.io/badge/FORGE-1.8.9-blueviolet?style=for-the-badge)](http://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.9.html)
+
+![jed](https://media.discordapp.net/attachments/779097681653661696/779100421758124063/unknown.png?width=1329&height=550)
+
+
+### 🤔 But how can I download it ?
+
+* You just need to join our discord:
+ https://discord.gg/Cx56wfP8dY
+
+> THE MOD IS A FORGE 1.8.9 MOD. [![Forge 1.8.9](https://img.shields.io/badge/FORGE-1.8.9-blueviolet?style=flat-square)](http://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.9.html)
