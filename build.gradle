@@ -51,6 +51,7 @@ repositories {
         name = 'sponge'
         url = 'http://repo.spongepowered.org/maven'
     }
+    jcenter()
 }
 
 repositories {
@@ -67,6 +68,7 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
+    compile "net.arikia.dev:discord-rpc:1.6.2"
 }
 
 jar {
