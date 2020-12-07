@@ -20,7 +20,8 @@ import java.util.List;
 public class FMLLoadingPlugin implements ITweaker {
 
     @Override
-    public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {}
+    public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
+    }
 
     @SuppressWarnings({"JavaReflectionMemberAccess", "unchecked"})
     @Override

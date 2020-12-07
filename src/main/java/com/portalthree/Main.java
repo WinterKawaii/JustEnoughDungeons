@@ -138,7 +138,6 @@ public class Main {
         triviaSolutions.put("Which of these monsters only spawns at night?", "Zombie Villager OR Ghast");
         triviaSolutions.put("Which of these is not a dragon in The End?", "Zoomer Dragon OR Weak Dragon OR Stonk Dragon OR Holy Dragon OR Boomer Dragon");
 
-        DiscordRPC.start();
     }
 
     @EventHandler
@@ -222,7 +221,6 @@ public class Main {
     public void onTick(TickEvent.ClientTickEvent event) {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.thePlayer;
-        DiscordRPC.update("Yes?", "player");
 
         // Checks every second
         tickAmount++;
@@ -232,32 +230,59 @@ public class Main {
                 Utils.checkForDungeons();
             }
 
-            if (DisplayCommand.auto && mc != null && mc.theWorld != null) {
+            if (ToggleCommand.discordRpcToggled && Minecraft.getMinecraft() != null && mc.theWorld != null && player != null) {
+                DiscordRPC.start();
                 List<String> scoreboard = ScoreboardHandler.getSidebarLines();
-                boolean found = false;
                 for (String s : scoreboard) {
                     String sCleaned = ScoreboardHandler.cleanSB(s);
                     if (sCleaned.contains("The Catacombs (")) {
                         if (sCleaned.contains("F1")) {
-                            DisplayCommand.display = "catacombs_floor_one";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F1", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_1");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F1", "https://discord.gg/Cx56wfP8dY", "floor_1");
+                            }
                         } else if (sCleaned.contains("F2")) {
-                            DisplayCommand.display = "catacombs_floor_two";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F2", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_2");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F2", "https://discord.gg/Cx56wfP8dY", "floor_2");
+                            }
                         } else if (sCleaned.contains("F3")) {
-                            DisplayCommand.display = "catacombs_floor_three";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F3", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_3");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F3", "https://discord.gg/Cx56wfP8dY", "floor_3");
+                            }
                         } else if (sCleaned.contains("F4")) {
-                            DisplayCommand.display = "catacombs_floor_four";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F4", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_4");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F4", "https://discord.gg/Cx56wfP8dY", "floor_4");
+                            }
                         } else if (sCleaned.contains("F5")) {
-                            DisplayCommand.display = "catacombs_floor_five";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F5", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_5");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F5", "https://discord.gg/Cx56wfP8dY", "floor_5");
+                            }
                         } else if (sCleaned.contains("F6")) {
-                            DisplayCommand.display = "catacombs_floor_six";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F6", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_6");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F6", "https://discord.gg/Cx56wfP8dY", "floor_6");
+                            }
                         } else if (sCleaned.contains("F7")) {
-                            DisplayCommand.display = "catacombs_floor_seven";
+                            if (player.getHeldItem() != null) {
+                                DiscordRPC.update(player.getName() + " is in a F7", "Holding: " + player.getHeldItem().getDisplayName().trim(), "floor_7");
+                            } else {
+                                DiscordRPC.update(player.getName() + " is in a F7", "https://discord.gg/Cx56wfP8dY", "floor_7");
+                            }
                         }
-                        found = true;
                     }
                 }
-                if (!found) DisplayCommand.display = "off";
-                ConfigHandler.writeStringConfig("misc", "display", DisplayCommand.display);
+            } else if (!ToggleCommand.discordRpcToggled){
+                DiscordRPC.shutdown();
             }
 
             if (ToggleCommand.creeperToggled && Utils.inDungeons && mc.theWorld != null) {

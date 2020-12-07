@@ -68,7 +68,8 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-    compile "net.arikia.dev:discord-rpc:1.6.2"
+
+    provided("net.arikia.dev:discord-rpc:1.6.2")
 }
 
 jar {
