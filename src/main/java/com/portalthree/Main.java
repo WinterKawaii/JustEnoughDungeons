@@ -38,12 +38,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 @Mod(modid = Main.MODID, version = Main.VERSION, clientSideOnly = true)
 public class Main {
@@ -56,13 +58,10 @@ public class Main {
     public static int titleTimer = -1;
     public static String titleText = "";
     public static boolean showTitle = false;
-    public static int SKILL_TIME;
     public static int skillTimer = -1;
     public static boolean showSkill = false;
-    public static String skillText = "";
     public static String guiToOpen = null;
     static int tickAmount = 1;
-    static KeyBinding[] keyBindings = new KeyBinding[1];
     static String[] riddleSolutions = {
             "The reward is not in my chest!",
             "At least one of them is lying, and the reward is not in",
@@ -72,8 +71,7 @@ public class Main {
             "Both of them are telling the truth."
     };
     static Map<String,
-            String> triviaSolutions = new HashMap<String,
-            String>();
+            String> triviaSolutions = new HashMap<String, String>();
     static Entity highestBlaze = null;
     static Entity lowestBlaze = null;
     static int[] creeperLineColours = {
@@ -91,7 +89,6 @@ public class Main {
     static boolean drawCreeperLines = false;
     static Vec3 creeperLocation = new Vec3(0, 0, 0);
     static List<Vec3[]> creeperLines = new ArrayList<Vec3[]>();
-    protected ModelBase mainModel;
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -99,7 +96,6 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PacketHandler());
 
-        final ConfigHandler cf = new ConfigHandler();
         ConfigHandler.reloadConfig();
 
         triviaSolutions.put("What is the status of The Watcher?", "Stalker");
@@ -156,24 +152,31 @@ public class Main {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onChat(ClientChatReceivedEvent event) throws InterruptedException {
-        final ToggleCommand tc = new ToggleCommand();
+    public void onChat(ClientChatReceivedEvent event){
         String message = event.message.getUnformattedText();
 
         if (!Utils.inSkyblock) return;
 
         if (ToggleCommand.joinInformationToggled) {
             if (message.contains("Dungeon Finder >")) {
+                Minecraft mc = Minecraft.getMinecraft();
+                EntityPlayerSP playerEntity = mc.thePlayer;
                 String text = event.message.getUnformattedText();
 
                 Matcher matcher = partyFinderPlayerRegex.matcher(text);
                 if (matcher.matches()) {
                     String player = matcher.group("player");
-                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------"));
-                    ChatComponentText clickText = new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.BOLD + "CLICK HERE TO CHECK " + EnumChatFormatting.RESET + "" + EnumChatFormatting.WHITE + "" + EnumChatFormatting.BOLD + player + EnumChatFormatting.YELLOW + "" + EnumChatFormatting.BOLD + "'s STATS");
-                    clickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/jeddungeons " + player));
-                    Minecraft.getMinecraft().thePlayer.addChatMessage(clickText);
-                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------"));
+                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + player + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│"));
+
+                    ChatComponentText statsClickText = new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.BOLD + "[STATS]");
+                    statsClickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/jeddungeons " + player));
+                    playerEntity.addChatMessage(statsClickText);
+
+                    ChatComponentText kickClickText = new ChatComponentText(EnumChatFormatting.RED + "" + EnumChatFormatting.BOLD + "[KICK]");
+                    kickClickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/party kick " + player));
+                    playerEntity.addChatMessage(kickClickText);
+
+                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│\n"));
                 }
             }
         }
@@ -184,7 +187,9 @@ public class Main {
                 if (message.contains(solution)) {
                     String npcName = message.substring(message.indexOf("]") + 2, message.indexOf(":"));
                     Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_GREEN + "" + EnumChatFormatting.BOLD + npcName + EnumChatFormatting.GREEN + " has the blessing."));
-                    break;
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_GREEN + "" + EnumChatFormatting.BOLD + npcName + EnumChatFormatting.GREEN + " has the blessing."));
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_GREEN + "" + EnumChatFormatting.BOLD + npcName + EnumChatFormatting.GREEN + " has the blessing."));
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_GREEN + "" + EnumChatFormatting.BOLD + npcName + EnumChatFormatting.GREEN + " has the blessing."));
                 }
             }
         }
@@ -230,7 +235,7 @@ public class Main {
                 Utils.checkForDungeons();
             }
 
-            if (ToggleCommand.discordRpcToggled && Minecraft.getMinecraft() != null && mc.theWorld != null && player != null) {
+            if (ToggleCommand.discordRpcToggled && Minecraft.getMinecraft() != null && mc.theWorld != null && player != null && Utils.inDungeons) {
                 DiscordRPC.start();
                 List<String> scoreboard = ScoreboardHandler.getSidebarLines();
                 for (String s : scoreboard) {
@@ -281,7 +286,7 @@ public class Main {
                         }
                     }
                 }
-            } else if (!ToggleCommand.discordRpcToggled){
+            } else if (!ToggleCommand.discordRpcToggled || !Utils.inDungeons){
                 DiscordRPC.shutdown();
             }
 
@@ -381,66 +386,15 @@ public class Main {
             List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
             for (Entity entity : entities) {
                 if (entity.getName().contains("✯")) {
-                    Entity renderViewEntity = Minecraft.getMinecraft().getRenderViewEntity();
-
-                    double viewX = renderViewEntity.prevPosX + (renderViewEntity.posX - renderViewEntity.prevPosX) * (double) event.partialTicks;
-                    double viewY = renderViewEntity.prevPosY + (renderViewEntity.posY - renderViewEntity.prevPosY) * (double) event.partialTicks;
-                    double viewZ = renderViewEntity.prevPosZ + (renderViewEntity.posZ - renderViewEntity.prevPosZ) * (double) event.partialTicks;
-
-                    int iconSize = 25;
-
-                    if (renderViewEntity == entity) {
-                        continue;
-                    }
-
-                    double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) event.partialTicks;
-                    double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) event.partialTicks;
-                    double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) event.partialTicks;
-
-                    x -= viewX;
-                    y -= viewY;
-                    z -= viewZ;
-
-                    if (entity.isSneaking()) {
-                        y -= 0.65F;
-                    }
-
-                    double distanceScale = Math.max(1, renderViewEntity.getPositionVector().distanceTo(entity.getPositionVector()) / 10F);
-
-                    if (ToggleCommand.mobClearToggled && Utils.inDungeons) {
-                        y += entity.height + 0.75F + (iconSize * distanceScale) / 40F;
-                    } else {
-                        y += entity.height / 2F + 0.25F;
-                    }
-
-                    float f = 1.6F;
-                    float f1 = 0.016666668F * f;
-                    GlStateManager.pushMatrix();
-                    GlStateManager.translate(x, y, z);
-                    GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
-                    GlStateManager.scale(-f1, -f1, f1);
-
-                    GlStateManager.scale(distanceScale, distanceScale, distanceScale);
-
-                    GlStateManager.disableLighting();
-                    GlStateManager.depthMask(false);
-                    GlStateManager.disableDepth();
-                    GlStateManager.enableBlend();
-                    GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                    GlStateManager.enableTexture2D();
-                    GlStateManager.color(1, 1, 1, 1);
-                    GlStateManager.enableAlpha();
-
-                    final String nameOverlay = EnumChatFormatting.GREEN + entity.getName() + " " + EnumChatFormatting.LIGHT_PURPLE + Math.round((entity.posX + entity.posY + entity.posZ) - (Minecraft.getMinecraft().thePlayer.posX + Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.posZ)) + " Meters";
-                    Minecraft.getMinecraft().fontRendererObj.drawString(nameOverlay, -Minecraft.getMinecraft().fontRendererObj.getStringWidth(nameOverlay) / 2F, 25 / 2F + 15, -1, true);
-                    GlStateManager.enableDepth();
-                    GlStateManager.depthMask(true);
-                    GlStateManager.enableLighting();
-                    GlStateManager.disableBlend();
-                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                    GlStateManager.popMatrix();
+                    Utils.drawNametag(event);
+                }
+            }
+        }
+        if (ToggleCommand.necronGlowToggled && Utils.inDungeons) {
+            List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
+            for (Entity entity : entities) {
+                if (entity instanceof EntityWither) {
+                    Utils.drawNametag(event);
                 }
             }
         }
@@ -462,18 +416,6 @@ public class Main {
         if (ToggleCommand.creeperToggled && drawCreeperLines && !creeperLines.isEmpty()) {
             for (int i = 0; i < creeperLines.size(); i++) {
                 Utils.draw3DLine(creeperLines.get(i)[0], creeperLines.get(i)[1], creeperLineColours[i % 10], event.partialTicks);
-            }
-        }
-
-        if (ToggleCommand.necronGlowToggled && Utils.inDungeons) {
-            List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
-            for (Entity entity : entities) {
-                if (entity instanceof EntityWither) {
-                    if (entity.getName().contains("Necron")) {
-                        AxisAlignedBB aabb = new AxisAlignedBB(entity.posX - 1.5, entity.posY + 3.5, entity.posZ - 1.5, entity.posX + 1.5, entity.posY, entity.posZ + 1.5);
-                        Utils.draw3DBox(aabb, 0x00, 0xFF, 0x00, 0xFF, event.partialTicks);
-                    }
-                }
             }
         }
     }
@@ -500,8 +442,7 @@ public class Main {
                         }
                     }
                 }
-            }
-            if (ToggleCommand.amongUsSolverToggled && containerName.trim().startsWith("What starts with:")) {
+            } else if (containerName.trim().startsWith("What starts with:'")) {
                 for (Slot slot : invSlots) {
                     ItemStack item = slot.getStack();
                     if (item == null) continue;

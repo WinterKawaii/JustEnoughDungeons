@@ -99,9 +99,6 @@ public class DungeonsCommand extends CommandBase {
                     EnumChatFormatting.GRAY + "  Catacombs Level: " + EnumChatFormatting.LIGHT_PURPLE + catacombs + "\n" +
                     EnumChatFormatting.GRAY + "  Current Selected Class: " + EnumChatFormatting.LIGHT_PURPLE + selectedClass + "\n\n" +
                     EnumChatFormatting.GRAY + "  Average Class Level: " + EnumChatFormatting.LIGHT_PURPLE + (tank + archer + berserk + mage + healer) / 5 + "\n" +
-                    EnumChatFormatting.GRAY + "  Total Secrets Found: " + EnumChatFormatting.LIGHT_PURPLE + "soon" + "\n" +
-                    EnumChatFormatting.GRAY + "  Highest damage in a single hit: " + EnumChatFormatting.LIGHT_PURPLE + "soon" + "\n" +
-                    EnumChatFormatting.GRAY + "  Current pet: " + EnumChatFormatting.LIGHT_PURPLE + "soon" + EnumChatFormatting.LIGHT_PURPLE + "\n" +
                     EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│\n"));
         }).start();
     }
