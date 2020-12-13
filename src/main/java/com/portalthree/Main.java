@@ -166,7 +166,7 @@ public class Main {
                 Matcher matcher = partyFinderPlayerRegex.matcher(text);
                 if (matcher.matches()) {
                     String player = matcher.group("player");
-                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + player + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│"));
+                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│───── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + player + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "─────│"));
 
                     ChatComponentText statsClickText = new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.BOLD + "[STATS]");
                     statsClickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/jeddungeons " + player));
@@ -176,7 +176,7 @@ public class Main {
                     kickClickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/party kick " + player));
                     playerEntity.addChatMessage(kickClickText);
 
-                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│\n"));
+                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│───── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "" + EnumChatFormatting.BOLD "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "─────│\n"));
                 }
             }
         }
