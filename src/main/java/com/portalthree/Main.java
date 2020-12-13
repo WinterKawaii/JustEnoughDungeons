@@ -176,7 +176,7 @@ public class Main {
                     kickClickText.setChatStyle(Utils.createClickStyle(ClickEvent.Action.RUN_COMMAND, "/party kick " + player));
                     playerEntity.addChatMessage(kickClickText);
 
-                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│───── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "" + EnumChatFormatting.BOLD "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "─────│\n"));
+                    playerEntity.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│───── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "" + EnumChatFormatting.BOLD + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "─────│\n"));
                 }
             }
         }
