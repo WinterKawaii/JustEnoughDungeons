@@ -169,7 +169,6 @@ public class ConfigHandler {
         if (!hasKey("toggles", "CreeperPuzzle")) writeBooleanConfig("toggles", "CreeperPuzzle", false);
         if (!hasKey("toggles", "joinInformation")) writeBooleanConfig("toggles", "joinInformation", false);
         if (!hasKey("toggles", "mobClear")) writeBooleanConfig("toggles", "mobClear", false);
-        if (!hasKey("toggles", "necronGlow")) writeBooleanConfig("toggles", "necronGlow", false);
         if (!hasKey("toggles", "amongUsSolver")) writeBooleanConfig("toggles", "amongUsSolver", false);
         if (!hasKey("toggles", "discordRpc")) writeBooleanConfig("toggles", "discordRpc", false);
 
@@ -183,7 +182,6 @@ public class ConfigHandler {
         ToggleCommand.creeperToggled = getBoolean("toggles", "CreeperPuzzle");
         ToggleCommand.joinInformationToggled = getBoolean("toggles", "joinInformation");
         ToggleCommand.mobClearToggled = getBoolean("toggles", "mobClear");
-        ToggleCommand.necronGlowToggled = getBoolean("toggles", "necronGlow");
         ToggleCommand.amongUsSolverToggled = getBoolean("toggles", "amongUsSolver");
         ToggleCommand.discordRpcToggled = getBoolean("toggles", "discordRpc");
 

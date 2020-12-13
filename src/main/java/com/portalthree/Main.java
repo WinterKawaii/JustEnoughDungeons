@@ -390,14 +390,6 @@ public class Main {
                 }
             }
         }
-        if (ToggleCommand.necronGlowToggled && Utils.inDungeons) {
-            List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
-            for (Entity entity : entities) {
-                if (entity instanceof EntityWither) {
-                    Utils.drawNametag(event);
-                }
-            }
-        }
 
         if (ToggleCommand.blazeToggled) {
             if (lowestBlaze != null) {

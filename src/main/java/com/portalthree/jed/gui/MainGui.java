@@ -28,7 +28,6 @@ public class MainGui extends GuiScreen {
     private GuiButton creeper;
     private GuiButton joinInformation;
     private GuiButton mobClear;
-    private GuiButton necronGlow;
     private GuiButton amongUsSolver;
     // Toggles
     private GuiButton discordRpc;
@@ -79,7 +78,6 @@ public class MainGui extends GuiScreen {
         creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
         joinInformation = new GuiButton(0, width / 2 - 100, (int) (height * 0.45), "Party Finder Join Information : " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled));
         mobClear = new GuiButton(0, width / 2 - 100, (int) (height * 0.50), "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled));
-        necronGlow = new GuiButton(0, width / 2 - 100, (int) (height * 0.55), "Glowing Necron : " + Utils.getColouredBoolean(ToggleCommand.necronGlowToggled));
         amongUsSolver = new GuiButton(0, width / 2 - 100, (int) (height * 0.60), "Among Us Tasks Solver : " + Utils.getColouredBoolean(ToggleCommand.amongUsSolverToggled));
         discordRpc = new GuiButton(0, width / 2 - 100, (int) (height * 0.65), "Discord RPC (in dungeons) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled));
         GlStateManager.popMatrix();
@@ -93,7 +91,6 @@ public class MainGui extends GuiScreen {
         this.buttonList.add(discordLink);
         this.buttonList.add(closeGUI);
         this.buttonList.add(mobClear);
-        this.buttonList.add(necronGlow);
         this.buttonList.add(amongUsSolver);
         this.buttonList.add(discordRpc);
 
@@ -128,10 +125,6 @@ public class MainGui extends GuiScreen {
             ToggleCommand.mobClearToggled = !ToggleCommand.mobClearToggled;
             ConfigHandler.writeBooleanConfig("toggles", "mobClear", ToggleCommand.mobClearToggled);
             mobClear.displayString = "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled);
-        } else if (button == necronGlow) {
-            ToggleCommand.necronGlowToggled = !ToggleCommand.necronGlowToggled;
-            ConfigHandler.writeBooleanConfig("toggles", "necronGlow", ToggleCommand.necronGlowToggled);
-            necronGlow.displayString = "Glowing Necron: " + Utils.getColouredBoolean(ToggleCommand.necronGlowToggled);
         } else if (button == amongUsSolver) {
             ToggleCommand.amongUsSolverToggled = !ToggleCommand.amongUsSolverToggled;
             ConfigHandler.writeBooleanConfig("toggles", "amongUsSolver", ToggleCommand.amongUsSolverToggled);

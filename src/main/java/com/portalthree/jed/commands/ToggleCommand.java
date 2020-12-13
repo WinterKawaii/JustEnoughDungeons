@@ -18,7 +18,6 @@ public class ToggleCommand extends CommandBase implements ICommand {
     public static boolean creeperToggled;
     public static boolean joinInformationToggled;
     public static boolean mobClearToggled;
-    public static boolean necronGlowToggled;
     public static boolean amongUsSolverToggled;
     public static boolean discordRpcToggled;
 
@@ -69,10 +68,7 @@ public class ToggleCommand extends CommandBase implements ICommand {
         } else if (arg1[0].equalsIgnoreCase("mobClear")) {
             mobClearToggled = !mobClearToggled;
             cf.writeBooleanConfig("toggles", "mobClear", mobClearToggled);
-        } else if (arg1[0].equalsIgnoreCase("necronGlow")) {
-            necronGlowToggled = !necronGlowToggled;
-            cf.writeBooleanConfig("toggles", "necronGlow", necronGlowToggled);
-        } else if (arg1[0].equalsIgnoreCase("amongUsSolver")) {
+        }  else if (arg1[0].equalsIgnoreCase("amongUsSolver")) {
             amongUsSolverToggled = !amongUsSolverToggled;
             cf.writeBooleanConfig("toggles", "amongUsSolver", amongUsSolverToggled);
         }
