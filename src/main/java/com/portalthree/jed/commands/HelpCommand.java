@@ -35,6 +35,7 @@ public class HelpCommand extends CommandBase implements ICommand {
                 EnumChatFormatting.WHITE + " /jed: Opens the main GUI" + "\n" +
                 EnumChatFormatting.WHITE + " /jedsetkey: Set your API key" + "\n" +
                 EnumChatFormatting.WHITE + " /jeddungeons: Allows you to check someone's dungeon stats." + "\n" +
+                EnumChatFormatting.WHITE + " /reloadconfig: Reloads the configuration." + "\n" +
                 EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------\n"));
     }
 

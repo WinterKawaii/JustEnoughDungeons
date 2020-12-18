@@ -68,7 +68,7 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-    provided("net.arikia.dev:discord-rpc:1.6.2")
+    provided 'com.jagrosh:DiscordIPC:0.4'
     provided('com.googlecode:json-simple::1.1')
 }
 

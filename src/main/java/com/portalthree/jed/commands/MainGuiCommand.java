@@ -1,7 +1,7 @@
 package com.portalthree.jed.commands;
 
 
-import com.portalthree.Main;
+import com.portalthree.jed.Main;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

@@ -171,6 +171,7 @@ public class ConfigHandler {
         if (!hasKey("toggles", "mobClear")) writeBooleanConfig("toggles", "mobClear", false);
         if (!hasKey("toggles", "amongUsSolver")) writeBooleanConfig("toggles", "amongUsSolver", false);
         if (!hasKey("toggles", "discordRpc")) writeBooleanConfig("toggles", "discordRpc", false);
+        if (!hasKey("toggles", "witherKey")) writeBooleanConfig("toggles", "witherKey", false);
 
         //API
         if (!hasKey("api", "APIKey")) writeStringConfig("api", "APIKey", "");
@@ -184,6 +185,7 @@ public class ConfigHandler {
         ToggleCommand.mobClearToggled = getBoolean("toggles", "mobClear");
         ToggleCommand.amongUsSolverToggled = getBoolean("toggles", "amongUsSolver");
         ToggleCommand.discordRpcToggled = getBoolean("toggles", "discordRpc");
+        ToggleCommand.witherKeyToggled = getBoolean("toggles", "witherKey");
 
     }
 

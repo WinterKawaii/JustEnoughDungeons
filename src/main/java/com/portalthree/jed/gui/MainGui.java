@@ -6,6 +6,7 @@ import com.portalthree.jed.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -29,8 +30,8 @@ public class MainGui extends GuiScreen {
     private GuiButton joinInformation;
     private GuiButton mobClear;
     private GuiButton amongUsSolver;
-    // Toggles
     private GuiButton discordRpc;
+    private GuiButton witherKey;
 
     public MainGui(int page) {
         this.page = page;
@@ -78,8 +79,9 @@ public class MainGui extends GuiScreen {
         creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
         joinInformation = new GuiButton(0, width / 2 - 100, (int) (height * 0.45), "Party Finder Join Information : " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled));
         mobClear = new GuiButton(0, width / 2 - 100, (int) (height * 0.50), "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled));
-        amongUsSolver = new GuiButton(0, width / 2 - 100, (int) (height * 0.60), "Among Us Tasks Solver : " + Utils.getColouredBoolean(ToggleCommand.amongUsSolverToggled));
-        discordRpc = new GuiButton(0, width / 2 - 100, (int) (height * 0.65), "Discord RPC (in dungeons) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled));
+        amongUsSolver = new GuiButton(0, width / 2 - 100, (int) (height * 0.55), "Among Us Tasks Solver : " + Utils.getColouredBoolean(ToggleCommand.amongUsSolverToggled));
+        discordRpc = new GuiButton(0, width / 2 - 100, (int) (height * 0.60), "Discord RPC (CAUSES FPS ISSUES) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled));
+        witherKey = new GuiButton(0, width / 2 - 100, (int) (height * 0.65), "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled));
         GlStateManager.popMatrix();
 
         this.buttonList.add(riddle);
@@ -93,6 +95,7 @@ public class MainGui extends GuiScreen {
         this.buttonList.add(mobClear);
         this.buttonList.add(amongUsSolver);
         this.buttonList.add(discordRpc);
+        this.buttonList.add(witherKey);
 
     }
 
@@ -132,7 +135,11 @@ public class MainGui extends GuiScreen {
         } else if (button == discordRpc) {
             ToggleCommand.discordRpcToggled = !ToggleCommand.discordRpcToggled;
             ConfigHandler.writeBooleanConfig("toggles", "discordRpc", ToggleCommand.discordRpcToggled);
-            discordRpc.displayString = "Discord RPC (in dungeons) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled);
+            discordRpc.displayString = "Discord RPC (MAJOR FPS ISSUES) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled);
+        } else if (button == witherKey) {
+        ToggleCommand.witherKeyToggled = !ToggleCommand.witherKeyToggled;
+        ConfigHandler.writeBooleanConfig("toggles", "witherKey", ToggleCommand.witherKeyToggled);
+        witherKey.displayString = "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled);
         } else if (button == githubLink) {
             try {
                 Desktop.getDesktop().browse(new URI("https://github.com/portalthree"));

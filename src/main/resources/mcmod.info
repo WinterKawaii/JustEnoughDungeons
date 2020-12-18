@@ -2,13 +2,13 @@
   {
     "modid": "jed",
     "name": "Just Enough Dungeons",
-    "description": "QOL changes that enhances your Hypixel Skyblock experience. use it with /jedhelp",
+    "description": "Use the mod with: /jedhelp",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "https://github.com/portalthree/JustEnoughDungeons",
     "authorList": [
       "portalthree"
     ],
-    "credits": "hypixel for skyblock."
+    "credits": "Hypixel for Skyblock."
   }
 ]

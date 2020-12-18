@@ -20,6 +20,7 @@ public class ToggleCommand extends CommandBase implements ICommand {
     public static boolean mobClearToggled;
     public static boolean amongUsSolverToggled;
     public static boolean discordRpcToggled;
+    public static boolean witherKeyToggled;
 
     @Override
     public String getCommandName() {
@@ -71,6 +72,12 @@ public class ToggleCommand extends CommandBase implements ICommand {
         }  else if (arg1[0].equalsIgnoreCase("amongUsSolver")) {
             amongUsSolverToggled = !amongUsSolverToggled;
             cf.writeBooleanConfig("toggles", "amongUsSolver", amongUsSolverToggled);
+        }  else if (arg1[0].equalsIgnoreCase("witherKey")) {
+        witherKeyToggled = !witherKeyToggled;
+        cf.writeBooleanConfig("toggles", "witherKey", witherKeyToggled);
+        } else if (arg1[0].equalsIgnoreCase("discordRpc")) {
+            discordRpcToggled = !discordRpcToggled;
+            cf.writeBooleanConfig("discordRpc", "discordRpc", discordRpcToggled);
         }
     }
 }
