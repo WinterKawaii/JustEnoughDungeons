@@ -191,7 +191,7 @@ public class NametagsRenderers {
                     GlStateManager.color(1, 1, 1, 1);
                     GlStateManager.enableAlpha();
 
-                    final String nameOverlay = EnumChatFormatting.RED + "!!!!!  " + entity.getName() + "  /  " + EnumChatFormatting.LIGHT_PURPLE + Math.round((entity.posX + entity.posY + entity.posZ) - (Minecraft.getMinecraft().thePlayer.posX + Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.posZ)) + " Meters";
+                    final String nameOverlay = EnumChatFormatting.RED + "▲ " + entity.getName() + "  /  " + EnumChatFormatting.LIGHT_PURPLE + Math.round((entity.posX + entity.posY + entity.posZ) - (Minecraft.getMinecraft().thePlayer.posX + Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.posZ)) + " Meters";
                     if (Math.sqrt(entity.getPosition().distanceSq(mc.thePlayer.getPosition())) < 25) {
                         Minecraft.getMinecraft().fontRendererObj.drawString(nameOverlay, -Minecraft.getMinecraft().fontRendererObj.getStringWidth(nameOverlay) / 2F, 25 / 2F + 10, -1, true);
                     }

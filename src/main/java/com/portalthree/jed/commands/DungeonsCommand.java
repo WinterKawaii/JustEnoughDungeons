@@ -105,10 +105,10 @@ public class DungeonsCommand extends CommandBase {
 
             player.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│\n" +
                     EnumChatFormatting.YELLOW + "  Currently Checking: " + EnumChatFormatting.WHITE + username + EnumChatFormatting.YELLOW + "'s stats.\n" +
-                    EnumChatFormatting.GRAY + "  Catacombs Level: " + EnumChatFormatting.LIGHT_PURPLE + catacombs + "\n" +
-                    EnumChatFormatting.GRAY + "  Current Selected Class: " + EnumChatFormatting.LIGHT_PURPLE + selectedClass + "\n" +
-                    EnumChatFormatting.GRAY + "  Average Class Level: " + EnumChatFormatting.LIGHT_PURPLE + (tank + archer + berserk + mage + healer) / 5 + "\n" +
-                    EnumChatFormatting.GRAY + "  Total Secrets Found: " + EnumChatFormatting.LIGHT_PURPLE + secrets + "\n" +
+                    EnumChatFormatting.GOLD + "➜" + EnumChatFormatting.GRAY + " Catacombs Level: " + EnumChatFormatting.LIGHT_PURPLE + catacombs + "\n" +
+                    EnumChatFormatting.GOLD + "➜" + EnumChatFormatting.GRAY + " Current Selected Class: " + EnumChatFormatting.LIGHT_PURPLE + selectedClass + "\n" +
+                    EnumChatFormatting.GOLD + "➜" + EnumChatFormatting.GRAY + " Average Class Level: " + EnumChatFormatting.LIGHT_PURPLE + (tank + archer + berserk + mage + healer) / 5 + "\n" +
+                    EnumChatFormatting.GOLD + "➜" + EnumChatFormatting.GRAY + " Total Secrets Found: " + EnumChatFormatting.LIGHT_PURPLE + secrets + "\n" +
                     EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "│─────────── " + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.WHITE + "[JED]" + EnumChatFormatting.DARK_AQUA + "" + EnumChatFormatting.STRIKETHROUGH + "───────────│\n"));
         }).start();
     }
