@@ -39,5 +39,4 @@ public class HelpCommand extends CommandBase implements ICommand {
                 EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "" + EnumChatFormatting.STRIKETHROUGH + "--------------------------------------\n"));
     }
 
-    ;
 }

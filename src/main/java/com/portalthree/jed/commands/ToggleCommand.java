@@ -10,6 +10,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 
 public class ToggleCommand extends CommandBase implements ICommand {
+    //TODO: To add a feature, add something here.
     public static boolean coordsToggled;
     public static boolean outlineTextToggled;
     public static boolean threeManToggled;
@@ -21,6 +22,9 @@ public class ToggleCommand extends CommandBase implements ICommand {
     public static boolean amongUsSolverToggled;
     public static boolean discordRpcToggled;
     public static boolean witherKeyToggled;
+    public static boolean waterToggled;
+    public static boolean hideImplosionToggled;
+    public static boolean skeletonMasterToggled;
 
     @Override
     public String getCommandName() {
@@ -50,34 +54,43 @@ public class ToggleCommand extends CommandBase implements ICommand {
 
         if (arg1[0].equalsIgnoreCase("coords")) {
             coordsToggled = !coordsToggled;
-            cf.writeBooleanConfig("toggles", "Coords", coordsToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "Coords", coordsToggled);
         } else if (arg1[0].equalsIgnoreCase("threemanpuzzle")) {
             threeManToggled = !threeManToggled;
-            cf.writeBooleanConfig("toggles", "ThreeManPuzzle", threeManToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "ThreeManPuzzle", threeManToggled);
         } else if (arg1[0].equalsIgnoreCase("oruopuzzle")) {
             oruoToggled = !oruoToggled;
-            cf.writeBooleanConfig("toggles", "OruoPuzzle", oruoToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "OruoPuzzle", oruoToggled);
         } else if (arg1[0].equalsIgnoreCase("blazepuzzle")) {
             blazeToggled = !blazeToggled;
-            cf.writeBooleanConfig("toggles", "BlazePuzzle", blazeToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "BlazePuzzle", blazeToggled);
         } else if (arg1[0].equalsIgnoreCase("creeperpuzzle")) {
             creeperToggled = !creeperToggled;
-            cf.writeBooleanConfig("toggles", "joinInformation", creeperToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "joinInformation", creeperToggled);
         } else if (arg1[0].equalsIgnoreCase("joinInformation")) {
             joinInformationToggled = !joinInformationToggled;
-            cf.writeBooleanConfig("toggles", "joinInformation", joinInformationToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "joinInformation", joinInformationToggled);
         } else if (arg1[0].equalsIgnoreCase("mobClear")) {
             mobClearToggled = !mobClearToggled;
-            cf.writeBooleanConfig("toggles", "mobClear", mobClearToggled);
-        }  else if (arg1[0].equalsIgnoreCase("amongUsSolver")) {
+            ConfigHandler.writeBooleanConfig("toggles", "mobClear", mobClearToggled);
+        } else if (arg1[0].equalsIgnoreCase("amongUsSolver")) {
             amongUsSolverToggled = !amongUsSolverToggled;
-            cf.writeBooleanConfig("toggles", "amongUsSolver", amongUsSolverToggled);
-        }  else if (arg1[0].equalsIgnoreCase("witherKey")) {
-        witherKeyToggled = !witherKeyToggled;
-        cf.writeBooleanConfig("toggles", "witherKey", witherKeyToggled);
+            ConfigHandler.writeBooleanConfig("toggles", "amongUsSolver", amongUsSolverToggled);
+        } else if (arg1[0].equalsIgnoreCase("witherKey")) {
+            witherKeyToggled = !witherKeyToggled;
+            ConfigHandler.writeBooleanConfig("toggles", "witherKey", witherKeyToggled);
         } else if (arg1[0].equalsIgnoreCase("discordRpc")) {
             discordRpcToggled = !discordRpcToggled;
-            cf.writeBooleanConfig("discordRpc", "discordRpc", discordRpcToggled);
+            ConfigHandler.writeBooleanConfig("discordRpc", "discordRpc", discordRpcToggled);
+        } else if (arg1[0].equalsIgnoreCase("waterSolver")) {
+            waterToggled = !waterToggled;
+            ConfigHandler.writeBooleanConfig("waterSolver", "waterSolver", waterToggled);
+        } else if (arg1[0].equalsIgnoreCase("hideImplosion")) {
+            hideImplosionToggled = !hideImplosionToggled;
+            ConfigHandler.writeBooleanConfig("hideImplosion", "hideImplosion", hideImplosionToggled);
+        } else if (arg1[0].equalsIgnoreCase("skeletonMaster")) {
+            skeletonMasterToggled = !skeletonMasterToggled;
+            ConfigHandler.writeBooleanConfig("skeletonMaster", "skeletonMaster", skeletonMasterToggled);
         }
     }
 }

@@ -13,18 +13,20 @@ public class DiscordRPCUtils {
     public static void start() {
         try {
             System.out.println("Discord RPC loading up...");
-            if (isActive()) { return; }
+            if (isActive()) {
+                return;
+            }
             client = new IPCClient(784602948969824257L);
-            client.setListener(new IPCListener(){
+            client.setListener(new IPCListener() {
                 @Override
-                public void onReady(IPCClient client)
-                {
+                public void onReady(IPCClient client) {
                     System.out.println("The Discord RPC is READY!");
                 }
             });
             client.connect();
         } catch (Throwable ex) {
-            System.out.println("DiscordRP encountered error while starting.");ex.printStackTrace();
+            System.out.println("DiscordRP encountered error while starting.");
+            ex.printStackTrace();
         }
     }
 

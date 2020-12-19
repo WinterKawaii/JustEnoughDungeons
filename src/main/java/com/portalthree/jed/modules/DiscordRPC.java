@@ -1,14 +1,13 @@
 package com.portalthree.jed.modules;
 
-import com.portalthree.jed.utils.DiscordRPCUtils;
 import com.portalthree.jed.commands.ToggleCommand;
 import com.portalthree.jed.handlers.ScoreboardHandler;
+import com.portalthree.jed.utils.DiscordRPCUtils;
 import com.portalthree.jed.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class DiscordRPC {
     static int tickAmount = 1;
 
     @SubscribeEvent
-    public void onTick(TickEvent.RenderTickEvent event) {
+    public void onTick(WorldEvent.Load event) {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.thePlayer;
 

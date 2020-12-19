@@ -36,7 +36,7 @@ public class SetkeyCommand extends CommandBase implements ICommand {
         }
 
         final ConfigHandler cf = new ConfigHandler();
-        cf.writeStringConfig("api", "APIKey", arg1[0]);
+        ConfigHandler.writeStringConfig("api", "APIKey", arg1[0]);
         player.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Set API key to " + EnumChatFormatting.DARK_GREEN + arg1[0]));
     }
 

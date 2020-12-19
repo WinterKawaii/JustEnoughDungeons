@@ -3,7 +3,14 @@ package com.portalthree.jed;
 import com.portalthree.jed.commands.*;
 import com.portalthree.jed.handlers.ConfigHandler;
 import com.portalthree.jed.handlers.PacketHandler;
-import com.portalthree.jed.modules.*;
+import com.portalthree.jed.modules.DiscordRPC;
+import com.portalthree.jed.modules.HideImplosion;
+import com.portalthree.jed.modules.NametagsRenderers;
+import com.portalthree.jed.modules.PartyFinderInformation;
+import com.portalthree.jed.modules.solvers.AmongUsSolvers;
+import com.portalthree.jed.modules.solvers.BlazeSolver;
+import com.portalthree.jed.modules.solvers.CreeperSolver;
+import com.portalthree.jed.modules.solvers.ThreeManRiddleAndOruo;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,6 +37,7 @@ public class Main {
         FMLCommonHandler.instance().bus().register(this);
         INSTANCE = this;
 
+        //TODO: To add a new feature, add something here.
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PacketHandler());
         MinecraftForge.EVENT_BUS.register(new PartyFinderInformation());
@@ -39,6 +47,7 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(new DiscordRPC());
         MinecraftForge.EVENT_BUS.register(new CreeperSolver());
         MinecraftForge.EVENT_BUS.register(new BlazeSolver());
+        MinecraftForge.EVENT_BUS.register(new HideImplosion());
 
         // Commands
         ClientCommandHandler.instance.registerCommand(new ToggleCommand());
@@ -47,6 +56,8 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new MainGuiCommand());
         ClientCommandHandler.instance.registerCommand(new SetkeyCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
+        ClientCommandHandler.instance.registerCommand(new SetPartyCommand());
+        ClientCommandHandler.instance.registerCommand(new RepartyCommand());
 
         ConfigHandler.reloadConfig();
     }

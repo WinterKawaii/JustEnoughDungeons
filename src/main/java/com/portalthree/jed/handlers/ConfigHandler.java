@@ -163,6 +163,7 @@ public class ConfigHandler {
 
     public static void reloadConfig() {
         // Puzzle Solvers
+        //TODO: To add a new feature, add something here.
         if (!hasKey("toggles", "ThreeManPuzzle")) writeBooleanConfig("toggles", "ThreeManPuzzle", false);
         if (!hasKey("toggles", "OruoPuzzle")) writeBooleanConfig("toggles", "OruoPuzzle", false);
         if (!hasKey("toggles", "BlazePuzzle")) writeBooleanConfig("toggles", "BlazePuzzle", false);
@@ -172,6 +173,8 @@ public class ConfigHandler {
         if (!hasKey("toggles", "amongUsSolver")) writeBooleanConfig("toggles", "amongUsSolver", false);
         if (!hasKey("toggles", "discordRpc")) writeBooleanConfig("toggles", "discordRpc", false);
         if (!hasKey("toggles", "witherKey")) writeBooleanConfig("toggles", "witherKey", false);
+        if (!hasKey("toggles", "hideImplosion")) writeBooleanConfig("toggles", "hideImplosion", false);
+
 
         //API
         if (!hasKey("api", "APIKey")) writeStringConfig("api", "APIKey", "");
@@ -186,6 +189,7 @@ public class ConfigHandler {
         ToggleCommand.amongUsSolverToggled = getBoolean("toggles", "amongUsSolver");
         ToggleCommand.discordRpcToggled = getBoolean("toggles", "discordRpc");
         ToggleCommand.witherKeyToggled = getBoolean("toggles", "witherKey");
+        ToggleCommand.hideImplosionToggled = getBoolean("toggles", "hideImplosion");
 
     }
 

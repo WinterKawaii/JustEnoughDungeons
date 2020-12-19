@@ -29,7 +29,7 @@ public class ReloadConfigCommand extends CommandBase {
     public void processCommand(ICommandSender arg0, String[] arg1) throws CommandException {
         final EntityPlayer player = (EntityPlayer) arg0;
         final ConfigHandler cf = new ConfigHandler();
-        cf.reloadConfig();
+        ConfigHandler.reloadConfig();
         player.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Reloaded config."));
     }
 

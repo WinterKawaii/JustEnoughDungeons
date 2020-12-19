@@ -6,7 +6,6 @@ import com.portalthree.jed.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -19,7 +18,8 @@ import java.net.URISyntaxException;
 public class MainGui extends GuiScreen {
 
     ResourceLocation texture = new ResourceLocation("jed:abackground.png");
-    private int page;
+    //TODO: To add a new feature, add something here.
+    private final int page;
     private GuiButton closeGUI;
     private GuiButton githubLink;
     private GuiButton discordLink;
@@ -32,6 +32,8 @@ public class MainGui extends GuiScreen {
     private GuiButton amongUsSolver;
     private GuiButton discordRpc;
     private GuiButton witherKey;
+    private GuiButton hideImplosion;
+    private GuiButton skeletonMaster;
 
     public MainGui(int page) {
         this.page = page;
@@ -73,15 +75,18 @@ public class MainGui extends GuiScreen {
 
         // Page 1
         GlStateManager.pushMatrix();
-        riddle = new GuiButton(0, width / 2 - 100, (int) (height * 0.25), "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled));
-        trivia = new GuiButton(0, width / 2 - 100, (int) (height * 0.3), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
-        blaze = new GuiButton(0, width / 2 - 100, (int) (height * 0.35), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
-        creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.4), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
-        joinInformation = new GuiButton(0, width / 2 - 100, (int) (height * 0.45), "Party Finder Join Information : " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled));
-        mobClear = new GuiButton(0, width / 2 - 100, (int) (height * 0.50), "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled));
-        amongUsSolver = new GuiButton(0, width / 2 - 100, (int) (height * 0.55), "Among Us Tasks Solver : " + Utils.getColouredBoolean(ToggleCommand.amongUsSolverToggled));
-        discordRpc = new GuiButton(0, width / 2 - 100, (int) (height * 0.60), "Discord RPC (CAUSES FPS ISSUES) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled));
-        witherKey = new GuiButton(0, width / 2 - 100, (int) (height * 0.65), "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled));
+        //TODO: To add a new feature, add something here.
+        riddle = new GuiButton(0, width / 2 - 100, (int) (height * 0.15), "Riddle Solver: " + Utils.getColouredBoolean(ToggleCommand.threeManToggled));
+        trivia = new GuiButton(0, width / 2 - 100, (int) (height * 0.20), "Trivia Solver: " + Utils.getColouredBoolean(ToggleCommand.oruoToggled));
+        blaze = new GuiButton(0, width / 2 - 100, (int) (height * 0.25), "Blaze Solver: " + Utils.getColouredBoolean(ToggleCommand.blazeToggled));
+        creeper = new GuiButton(0, width / 2 - 100, (int) (height * 0.30), "Creeper Solver : " + Utils.getColouredBoolean(ToggleCommand.creeperToggled));
+        joinInformation = new GuiButton(0, width / 2 - 100, (int) (height * 0.35), "Party Finder Join Information : " + Utils.getColouredBoolean(ToggleCommand.joinInformationToggled));
+        mobClear = new GuiButton(0, width / 2 - 100, (int) (height * 0.40), "Highlight Starred Mobs : " + Utils.getColouredBoolean(ToggleCommand.mobClearToggled));
+        amongUsSolver = new GuiButton(0, width / 2 - 100, (int) (height * 0.45), "Among Us Tasks Solver : " + Utils.getColouredBoolean(ToggleCommand.amongUsSolverToggled));
+        discordRpc = new GuiButton(0, width / 2 - 100, (int) (height * 0.50), "Discord RPC (CAUSES FPS ISSUES) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled));
+        witherKey = new GuiButton(0, width / 2 - 100, (int) (height * 0.55), "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled));
+        hideImplosion = new GuiButton(0, width / 2 - 100, (int) (height * 0.60), "Hide Implosion Messages : " + Utils.getColouredBoolean(ToggleCommand.hideImplosionToggled));
+        skeletonMaster = new GuiButton(0, width / 2 - 100, (int) (height * 0.65), "Highlight Skeleton Masters : " + Utils.getColouredBoolean(ToggleCommand.hideImplosionToggled));
         GlStateManager.popMatrix();
 
         this.buttonList.add(riddle);
@@ -96,6 +101,8 @@ public class MainGui extends GuiScreen {
         this.buttonList.add(amongUsSolver);
         this.buttonList.add(discordRpc);
         this.buttonList.add(witherKey);
+        this.buttonList.add(hideImplosion);
+        this.buttonList.add(skeletonMaster);
 
     }
 
@@ -104,6 +111,7 @@ public class MainGui extends GuiScreen {
     public void actionPerformed(GuiButton button) {
         if (button == closeGUI) {
             Minecraft.getMinecraft().thePlayer.closeScreen();
+            //TODO: To add a new feature, add something here.
         } else if (button == riddle) {
             ToggleCommand.threeManToggled = !ToggleCommand.threeManToggled;
             ConfigHandler.writeBooleanConfig("toggles", "ThreeManPuzzle", ToggleCommand.threeManToggled);
@@ -137,9 +145,17 @@ public class MainGui extends GuiScreen {
             ConfigHandler.writeBooleanConfig("toggles", "discordRpc", ToggleCommand.discordRpcToggled);
             discordRpc.displayString = "Discord RPC (MAJOR FPS ISSUES) : " + Utils.getColouredBoolean(ToggleCommand.discordRpcToggled);
         } else if (button == witherKey) {
-        ToggleCommand.witherKeyToggled = !ToggleCommand.witherKeyToggled;
-        ConfigHandler.writeBooleanConfig("toggles", "witherKey", ToggleCommand.witherKeyToggled);
-        witherKey.displayString = "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled);
+            ToggleCommand.witherKeyToggled = !ToggleCommand.witherKeyToggled;
+            ConfigHandler.writeBooleanConfig("toggles", "witherKey", ToggleCommand.witherKeyToggled);
+            witherKey.displayString = "Keys/Blessings Highlighter : " + Utils.getColouredBoolean(ToggleCommand.witherKeyToggled);
+        } else if (button == hideImplosion) {
+            ToggleCommand.hideImplosionToggled = !ToggleCommand.hideImplosionToggled;
+            ConfigHandler.writeBooleanConfig("toggles", "hideImplosion", ToggleCommand.hideImplosionToggled);
+            hideImplosion.displayString = "Hide Implosion Messages : " + Utils.getColouredBoolean(ToggleCommand.hideImplosionToggled);
+        } else if (button == skeletonMaster) {
+            ToggleCommand.skeletonMasterToggled = !ToggleCommand.skeletonMasterToggled;
+            ConfigHandler.writeBooleanConfig("toggles", "skeletonMaster", ToggleCommand.skeletonMasterToggled);
+            skeletonMaster.displayString = "Highlight Skeleton Masters : " + Utils.getColouredBoolean(ToggleCommand.skeletonMasterToggled);
         } else if (button == githubLink) {
             try {
                 Desktop.getDesktop().browse(new URI("https://github.com/portalthree"));

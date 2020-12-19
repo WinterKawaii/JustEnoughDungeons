@@ -6,7 +6,7 @@ import java.util.Map;
 public class TriviaSolutionsUtils {
     public static Map<String, String> triviaSolutions = new HashMap<String, String>();
 
-    public void triviaSolutions(){
+    public void triviaSolutions() {
         triviaSolutions.put("What is the status of The Watcher?", "Stalker");
         triviaSolutions.put("What is the status of Bonzo?", "New Necromancer");
         triviaSolutions.put("What is the status of Scarf?", "Apprentice Necromancer");
