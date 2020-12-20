@@ -36,7 +36,7 @@ public class Main {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(this);
-        INSTANCE = this;
+        INSTANCE = this; 
 
         //TODO: To add a new feature, add something here.
         MinecraftForge.EVENT_BUS.register(this);
