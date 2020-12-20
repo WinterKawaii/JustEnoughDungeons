@@ -3,6 +3,7 @@ package com.portalthree.jed;
 import com.portalthree.jed.commands.*;
 import com.portalthree.jed.handlers.ConfigHandler;
 import com.portalthree.jed.handlers.PacketHandler;
+import com.portalthree.jed.handlers.events.ChatReceivedHandler;
 import com.portalthree.jed.modules.DiscordRPC;
 import com.portalthree.jed.modules.HideImplosion;
 import com.portalthree.jed.modules.NametagsRenderers;
@@ -49,6 +50,9 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(new BlazeSolver());
         MinecraftForge.EVENT_BUS.register(new HideImplosion());
 
+        //Event Handlers
+        MinecraftForge.EVENT_BUS.register(new ChatReceivedHandler());
+
         // Commands
         ClientCommandHandler.instance.registerCommand(new ToggleCommand());
         ClientCommandHandler.instance.registerCommand(new ReloadConfigCommand());
@@ -56,7 +60,6 @@ public class Main {
         ClientCommandHandler.instance.registerCommand(new MainGuiCommand());
         ClientCommandHandler.instance.registerCommand(new SetkeyCommand());
         ClientCommandHandler.instance.registerCommand(new HelpCommand());
-        ClientCommandHandler.instance.registerCommand(new SetPartyCommand());
         ClientCommandHandler.instance.registerCommand(new RepartyCommand());
 
         ConfigHandler.reloadConfig();

@@ -14,6 +14,14 @@ import java.util.Map;
 
 public class ThreeManRiddleAndOruo {
     static Map<String, String> triviaSolutions = new HashMap<String, String>();
+    static String[] riddleSolutions = {
+            "The reward is not in my chest!",
+            "At least one of them is lying, and the reward is not in",
+            "My chest doesn't have the reward. We are all telling the truth",
+            "My chest has the reward and I'm telling the truth",
+            "The reward isn't in any of our chests",
+            "Both of them are telling the truth."
+    };
 
     public void triviaSolutions() {
         triviaSolutions.put("What is the status of The Watcher?", "Stalker");
@@ -52,16 +60,6 @@ public class ThreeManRiddleAndOruo {
         triviaSolutions.put("Which of these monsters only spawns at night?", "Zombie Villager OR Ghast");
         triviaSolutions.put("Which of these is not a dragon in The End?", "Zoomer Dragon OR Weak Dragon OR Stonk Dragon OR Holy Dragon OR Boomer Dragon");
     }
-
-    static String[] riddleSolutions = {
-            "The reward is not in my chest!",
-            "At least one of them is lying, and the reward is not in",
-            "My chest doesn't have the reward. We are all telling the truth",
-            "My chest has the reward and I'm telling the truth",
-            "The reward isn't in any of our chests",
-            "Both of them are telling the truth."
-    };
-
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onChat(ClientChatReceivedEvent event) {

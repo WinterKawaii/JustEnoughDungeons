@@ -1,11 +1,8 @@
 package com.portalthree.jed.utils;
 
-import com.portalthree.jed.Main;
 import com.portalthree.jed.handlers.ScoreboardHandler;
-import com.portalthree.jed.handlers.TextRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -15,8 +12,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -26,7 +21,6 @@ import net.minecraft.util.*;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -35,59 +29,7 @@ public class Utils {
 
     public static boolean inSkyblock = false;
     public static boolean inDungeons = false;
-    static int[] skillXPPerLevel = {
-            0,
-            50,
-            125,
-            200,
-            300,
-            500,
-            750,
-            1000,
-            1500,
-            2000,
-            3500,
-            5000,
-            7500,
-            10000,
-            15000,
-            20000,
-            30000,
-            50000,
-            75000,
-            100000,
-            200000,
-            300000,
-            400000,
-            500000,
-            600000,
-            700000,
-            800000,
-            900000,
-            1000000,
-            1100000,
-            1200000,
-            1300000,
-            1400000,
-            1500000,
-            1600000,
-            1700000,
-            1800000,
-            1900000,
-            2000000,
-            2100000,
-            2200000,
-            2300000,
-            2400000,
-            2500000,
-            2600000,
-            2750000,
-            2900000,
-            3100000,
-            3400000,
-            3700000,
-            4000000
-    };
+
     static int[] dungeonsXPPerLevel = {
             0,
             50,
@@ -141,54 +83,6 @@ public class Utils {
             93000000,
             116250000
     };
-    static int[] expertiseKills = {
-            50,
-            100,
-            250,
-            500,
-            1000,
-            2500,
-            5500,
-            10000,
-            15000
-    };
-
-    public static int getItems(String item) {
-        Minecraft mc = Minecraft.getMinecraft();
-        EntityPlayer player = mc.thePlayer;
-
-        double x = player.posX;
-        double y = player.posY;
-        double z = player.posZ;
-        AxisAlignedBB scan = new AxisAlignedBB(x - 6, y - 6, z - 6, x + 6, y + 6, z + 6);
-        List<EntityItem> items = mc.theWorld.getEntitiesWithinAABB(EntityItem.class, scan);
-
-        for (EntityItem i : items) {
-            String itemName = StringUtils.stripControlCodes(i.getEntityItem().getDisplayName());
-            if (itemName.equals(item)) return i.getEntityItem().stackSize;
-        }
-        // No items found
-        return 0;
-    }
-
-    public static Object getField(Class<?> clazz, Object o, String... fieldNames) {
-        Field field = null;
-        for (String fieldName : fieldNames) {
-            try {
-                field = clazz.getDeclaredField(fieldName);
-                break;
-            } catch (Exception e) {
-            }
-        }
-        if (field != null) {
-            field.setAccessible(true);
-            try {
-                return field.get(o);
-            } catch (IllegalAccessException e) {
-            }
-        }
-        return null;
-    }
 
     public static List<String> getMatchingPlayers(String arg) {
         List<String> matchingPlayers = new ArrayList<>();
@@ -212,30 +106,6 @@ public class Utils {
         return style;
     }
 
-    public static void createTitle(String text, int seconds) {
-        Minecraft.getMinecraft().thePlayer.playSound("random.orb", 1, (float) 0.5);
-        Main.titleTimer = seconds * 20;
-        Main.showTitle = true;
-        Main.titleText = text;
-    }
-
-    public static void drawTitle(String text) {
-        Minecraft mc = Minecraft.getMinecraft();
-        ScaledResolution scaledResolution = new ScaledResolution(mc);
-
-        int height = scaledResolution.getScaledHeight();
-        int width = scaledResolution.getScaledWidth();
-        int textLength = mc.fontRendererObj.getStringWidth(text);
-
-        double scale = 4;
-        if (textLength * scale > (width * 0.9F)) {
-            scale = (width * 0.9F) / (float) textLength;
-        }
-
-        int titleX = (int) ((width / 2) - (textLength * scale / 2));
-        int titleY = (int) ((height * 0.45) / scale);
-        new TextRenderer(mc, text, titleX, titleY, scale);
-    }
 
     public static void checkForSkyblock() {
         Minecraft mc = Minecraft.getMinecraft();
@@ -277,13 +147,6 @@ public class Utils {
         return String.join(" ", words);
     }
 
-    public static double getPercentage(int num1, int num2) {
-        if (num2 == 0) return 0D;
-        double result = ((double) num1 * 100D) / (double) num2;
-        result = Math.round(result * 100D) / 100D;
-        return result;
-    }
-
     public static void drawOnSlot(int size, int xSlotPos, int ySlotPos, int color) {
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         int guiLeft = (sr.getScaledWidth() - 176) / 2;
@@ -297,35 +160,6 @@ public class Utils {
         GL11.glTranslated(0, 0, 1);
         Gui.drawRect(x, y, x + 16, y + 16, color);
         GL11.glTranslated(0, 0, -1);
-    }
-
-    public static String getTimeBetween(double timeOne, double timeTwo) {
-        double secondsBetween = Math.floor(timeTwo - timeOne);
-
-        String timeFormatted = "";
-        int days;
-        int hours;
-        int minutes;
-        int seconds;
-
-        if (secondsBetween > 86400) {
-            // More than 1d, display #d#h
-            days = (int) (secondsBetween / 86400);
-            hours = (int) (secondsBetween % 86400 / 3600);
-            timeFormatted = days + "d" + hours + "h";
-        } else if (secondsBetween > 3600) {
-            // More than 1h, display #h#m
-            hours = (int) (secondsBetween / 3600);
-            minutes = (int) (secondsBetween % 3600 / 60);
-            timeFormatted = hours + "h" + minutes + "m";
-        } else {
-            // Display #m#s
-            minutes = (int) (secondsBetween / 60);
-            seconds = (int) (secondsBetween % 60);
-            timeFormatted = minutes + "m" + seconds + "s";
-        }
-
-        return timeFormatted;
     }
 
     public static double xpToDungeonsLevel(double xp) {
@@ -372,6 +206,16 @@ public class Utils {
         GlStateManager.enableTexture2D();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.popMatrix();
+    }
+
+    public static Boolean checkIfArrayContains(final ArrayList<String> arrayList, final String stringCheck) {
+        boolean tempBoolean = false;
+        for (int i = 0; i < arrayList.size(); ++i) {
+            if (stringCheck.equals(arrayList.get(i))) {
+                tempBoolean = true;
+            }
+        }
+        return tempBoolean;
     }
 
     public static void draw3DString(BlockPos pos, String text, int colour, float partialTicks) {
@@ -487,16 +331,6 @@ public class Utils {
         }
 
         return closestBlock;
-    }
-
-    public static boolean isNPC(Entity entity) {
-        if (!(entity instanceof EntityOtherPlayerMP)) {
-            return false;
-        }
-
-        EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
-
-        return entity.getUniqueID().version() == 4 && entityLivingBase.getHealth() == 20.0F && !entityLivingBase.isPlayerSleeping();
     }
 
 }

@@ -5,23 +5,23 @@ import com.portalthree.jed.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CreeperSolver {
+    public static int titleTimer = -1;
+    public static boolean showTitle = false;
+    public static int skillTimer = -1;
+    public static boolean showSkill = false;
     static int tickAmount = 1;
     static int[] creeperLineColours = {
             0x50EF39,
@@ -38,10 +38,6 @@ public class CreeperSolver {
     static boolean drawCreeperLines = false;
     static Vec3 creeperLocation = new Vec3(0, 0, 0);
     static List<Vec3[]> creeperLines = new ArrayList<Vec3[]>();
-    public static int titleTimer = -1;
-    public static boolean showTitle = false;
-    public static int skillTimer = -1;
-    public static boolean showSkill = false;
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {

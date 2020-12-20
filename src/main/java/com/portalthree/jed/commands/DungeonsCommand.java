@@ -89,7 +89,7 @@ public class DungeonsCommand extends CommandBase {
             String playerURL = "https://api.hypixel.net/player?uuid=" + uuid + "&key=" + key;
             System.out.println("Fetching player data...");
             JsonObject playerResponse = APIHandler.getResponse(playerURL);
-            if(!playerResponse.get("success").getAsBoolean()){
+            if (!playerResponse.get("success").getAsBoolean()) {
                 String reason = playerResponse.get("cause").getAsString();
                 player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "This player has not played on Hypixel."));
             }

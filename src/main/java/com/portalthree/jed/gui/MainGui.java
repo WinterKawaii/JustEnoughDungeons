@@ -17,9 +17,9 @@ import java.net.URISyntaxException;
 
 public class MainGui extends GuiScreen {
 
-    ResourceLocation texture = new ResourceLocation("jed:abackground.png");
     //TODO: To add a new feature, add something here.
     private final int page;
+    ResourceLocation texture = new ResourceLocation("jed:abackground.png");
     private GuiButton closeGUI;
     private GuiButton githubLink;
     private GuiButton discordLink;
